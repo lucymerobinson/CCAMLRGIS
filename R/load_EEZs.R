@@ -20,7 +20,7 @@ load_EEZs <-function(format){
   # }
   if(format=="RDATA"){
 
-    return(EEZ_data)
+    return(CCAMLRGIS::EEZ_data)
 
   }  
   if (format!="RDATA"){

@@ -20,7 +20,7 @@ load_SSMUs <-function(format){
   #   return(MA_data)
   # }
   if(format=="RDATA"){
-    return(SSMU_data)
+    return(CCAMLRGIS::SSMU_data)
   }
   if (format!="RDATA"){
     warning("only RDATA format is currently available")

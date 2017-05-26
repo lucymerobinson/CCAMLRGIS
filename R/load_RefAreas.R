@@ -21,7 +21,7 @@ load_RefAreas <-function(format){
   }
   if(format=="RDATA"){
     
-    return(RefAreas)
+    return(CCAMLRGIS::RefAreas)
     
   }
   if (!format%in%c("RDATA","GEOJSON")){

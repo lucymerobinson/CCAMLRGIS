@@ -108,7 +108,7 @@ create_Points=function(InputFile,OutputName,Buffer=0,Separate=0,Clip=0){
     }else{
       cat(paste("Start clipping polygon",PID),"\n")
       # need to fix when Coastline data on the online GIS has been clarified 
-      Pls=Clip2Coast(Pl,Coastline_data,ID=PID)
+      Pls=Clip2Coast(Pl, CCAMLRGIS::Coastline_data, ID=PID)
       cat(paste("End clipping polygon",PID),"\n") 
     }
     
