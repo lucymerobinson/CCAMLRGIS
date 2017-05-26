@@ -125,7 +125,7 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
         Pls=Polygons(list(Pl), ID=PID)
       }else{
         cat(paste("Start clipping polygon",PID),"\n")
-        Pls=Clip2Coast(Pl,IsoLinesFile=Clip,ID=PID)
+        Pls=Clip2Coast(Pl, Clip, ID=PID)
         cat(paste("End clipping polygon",PID),"\n") 
       }
       
@@ -232,7 +232,7 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
         Pls=Polygons(list(Pl), ID=PID)
       }else{
         cat(paste("Start clipping polygon",PID),"\n")
-        Pls=Clip2Coast(Pl,IsoLinesFile=Clip,ID=PID)
+        Pls=Clip2Coast(Pl, Clip,ID=PID)
         cat(paste("End clipping polygon",PID),"\n") 
       }
       
