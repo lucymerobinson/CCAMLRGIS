@@ -1,0 +1,32 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# CCAMLRGIS
+
+A pacakge for reading data directly from the CCAMLR geoserver to R and writing spatial data for plotting and analyses in R or for exporting and displaying on the online GIS 
+
+## Installation
+
+You can install CCAMLRGIS from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("lucymerobinson/TestCCAMLRGIS")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+TBD
