@@ -8,11 +8,12 @@
 #' 
 DMSToDD = function(Coords){
   # replace strange text with text that R will recognise
-  dm=gsub("’","'",Coords)
-  dm=gsub('”','',dm)
+  dm=gsub("\u2019","'",Coords)
+  dm=gsub("\u201D",'',dm)
   # sub characters that R can split on to create consistent number of splits
   dm=gsub("([A-Z]+)","~\\1~",dm)
-  dm=do.call(rbind, strsplit(as.character(dm), "[°\\'~]"))
+  
+  dm=do.call(rbind, strsplit(as.character(dm), "[\u00B0\\'~]"))
   dm=trimws(dm)
   # replace blank strings with zero - this is mostly when only minutes have been provided and no seconds
   dm[nchar(dm)==0]=0
