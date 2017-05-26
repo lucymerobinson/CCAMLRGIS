@@ -13,3 +13,33 @@
 #' @docType package
 #' @name CCAMLRGIS
 NULL
+
+#' ASD data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name ASD_data
+NULL
+
+
+#' MPA data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name MPA_data
+NULL
+
+#' RB data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name RB_data
+NULL
+
+#' RefAreas 
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name RefAreas
+NULL
+
