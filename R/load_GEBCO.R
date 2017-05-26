@@ -14,7 +14,7 @@ load_GEBCO <- function(data_dir){
   # if we upload gebco 2014 data as a GeoTiff then it should be accessible as:
   # new_test="https://gis.ccamlr.org/geoserver/gis/wms?request=GetMap&service=WMS&version=1.1.0&layers=gis:geb14south_clip40_102020&styles=&bbox=-5398150.787274787,-5398800.520136088,5398800.5201460235,5398150.787284723&width=512&height=512&srs=EPSG:102020&format=Gtiff"
   # download raster data to current file directory using the utils package
-  download.file(ccamlrgisurl,destfile = "bathy_data.tif")
+  utils::download.file(ccamlrgisurl,destfile = "bathy_data.tif")
   bath_test <- raster::raster("bathy_data.tif")
   # return bathymetry data
   bath_test

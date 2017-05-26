@@ -47,7 +47,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=" ",dlon,d
     
     GriddedData_Sum=aggregate(GVal~Glon+Glat,data=GriddedData,sum)
     SUMS=GriddedData_Sum[,3]
-    GriddedData_Median=aggregate(GVal~Glon+Glat,data=GriddedData,median)
+    GriddedData_Median=aggregate(GVal~Glon+Glat,data=GriddedData, stats::median)
     MEDIANS=GriddedData_Median[,3]
     GriddedData_Max=aggregate(GVal~Glon+Glat,data=GriddedData,max)
     MAXS=GriddedData_Max[,3]

@@ -8,12 +8,13 @@
 #' @param Separate currently, If the data file contains several items (e.g. several fishing lines) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. I want to remove this as I think you can manage this at the input end.
 #' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
 #' @import rgeos rgdal raster sp
+#' @importFrom utils read.csv
 #' @export
 
 
 create_Points=function(InputFile,OutputName,Buffer=0,Separate=0,Clip=0){
   if (class(InputFile)=="character"){
-    data=read.csv(InputFile)}else{
+    data=utils::read.csv(InputFile)}else{
       data=InputFile  
     }
   IDs=as.character(data[,1])

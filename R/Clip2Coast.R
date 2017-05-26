@@ -7,6 +7,7 @@
 #' @param ID unique IDs for polygons, but think I will get rid of this as polys should have unique IDs
 #' @keywords Clip Coastline
 #' @import rgeos rgdal raster
+#' @importFrom methods slot
 #' @export
 
 
@@ -100,7 +101,7 @@ Clip2Coast=function(Pl,Coastline,ID){
     #Drill holes
     Pls=Pl@polygons[[1]]@Polygons[[1]]
     Pls=c(Pls,Plholes) 
-    Pls=checkPolygonsHoles(Polygons(Pls, ID=PID), properly=TRUE, avoidGEOS=FALSE, useSTRtree=FALSE)
+    Pls= maptools::checkPolygonsHoles(Polygons(Pls, ID=PID), properly=TRUE, avoidGEOS=FALSE, useSTRtree=FALSE)
   }else{
     Pls=Pl@polygons[[1]]@Polygons[[1]]
     Pls=Polygons(list(Pls), ID=PID)
