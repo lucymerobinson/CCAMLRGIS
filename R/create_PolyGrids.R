@@ -53,7 +53,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=" ",dlon,d
     MAXS=GriddedData_Max[,3]
     GriddedData_Min=aggregate(GVal~Glon+Glat,data=GriddedData,min)
     MINS=GriddedData_Min[,3]
-    GriddedData_StDev=aggregate(GVal~Glon+Glat,data=GriddedData,sd)
+    GriddedData_StDev=aggregate(GVal~Glon+Glat,data=GriddedData, stats::sd)
     STDEVS=GriddedData_StDev[,3]
     GriddedData_Count=aggregate(rep(1,length(Glon))~Glon+Glat,data=GriddedData,sum)
     COUNTS=GriddedData_Count[,3]
