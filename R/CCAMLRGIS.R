@@ -21,6 +21,12 @@ NULL
 #' @name ASD_data
 NULL
 
+#' Coastline data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name Coastline_data
+NULL
 
 #' MPA data
 #'  

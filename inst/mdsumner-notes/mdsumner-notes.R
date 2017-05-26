@@ -23,3 +23,9 @@ MPA_data$GAR_Description <- stringi::stri_escape_unicode(MPA_data$GAR_Descriptio
 MPA_data$GAR_End_Date <- NULL
 MPA_data$GAR_End_Date <- NA_character_
 devtools::use_data(MPA_data, overwrite = TRUE)
+
+# - size of data reduced, not enough
+
+tools::resaveRdaFiles("data", compress = "auto")
+
+
