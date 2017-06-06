@@ -2,7 +2,7 @@
 #'
 #' Create Polygons that are compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  currently, the name of the input data file in quotes e.g. "DataFile.csv", but I want to change this so you can choose between R dataframe or csv file 
+#' @param InputFile  the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe 
 #' @param OutputFormat is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
