@@ -1,12 +1,9 @@
 #' Load Other Fishery Management Areas
 #'
-#' Load Other Fishery Management Areas
-#'
 #' @param format "RDATA" will use the Spatial Polygon Data Frame last saved with the package see ?MA_data for documentation of data/further details
 #' @keywords Other Fishery Management Areas
 #' @import rgeos rgdal raster
 #' @export
-
 
 
 load_MAs <-function(format){
