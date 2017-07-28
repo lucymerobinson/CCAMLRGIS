@@ -7,8 +7,8 @@
 x <- readLines("R/DMStoDD.R")
 cat(stringi::stri_escape_unicode(x), "R/DMStoDD.R")
 
-x <- ASD_data$GAR_Description
-ASD_data$GAR_DESCRIPTION <- stringi::stri_escape_unicode(x)
+# x <- ASD_data$GAR_Description
+# ASD_data$GAR_DESCRIPTION <- stringi::stri_escape_unicode(x)
 ASD_data$GAR_Description <- stringi::stri_escape_unicode(ASD_data$GAR_Description)
 ASD_data$GAR_End_Date <- NULL
 ASD_data$GAR_End_Date <- NA_character_
@@ -23,6 +23,14 @@ MPA_data$GAR_Description <- stringi::stri_escape_unicode(MPA_data$GAR_Descriptio
 MPA_data$GAR_End_Date <- NULL
 MPA_data$GAR_End_Date <- NA_character_
 devtools::use_data(MPA_data, overwrite = TRUE)
+
+SSMU_data$GAR_DESCRIPTION <- stringi::stri_escape_unicode(x)
+SSMU_data$GAR_Description <- stringi::stri_escape_unicode(SSMU_data$GAR_Description)
+SSMU_data$GAR_End_Date <- NULL
+SSMU_data$GAR_End_Date <- NA_character_
+devtools::use_data(SSMU_data, overwrite = TRUE)
+
+
 
 # - size of data reduced, not enough
 
