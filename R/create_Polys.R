@@ -59,9 +59,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       #Project Lat/Lon
       PRO=spTransform(Coords,CRS(CRSProj))
-      # PLon=coordinates(PRO)[,1]
-      # PLat=coordinates(PRO)[,2]
-      # rm(PRO)
+ 
       
       #Add Buffer
       if (Buffer>0){
@@ -126,9 +124,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       #Project Lat/Lon
       PRO=spTransform(Coords,CRS(CRSProj))
-      # PLon=coordinates(PRO)[,1]
-      # PLat=coordinates(PRO)[,2]
-      # rm(PRO)
+
       
       #Add Buffer
       if (Buffer>0){
