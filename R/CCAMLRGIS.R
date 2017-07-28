@@ -4,7 +4,7 @@
 #' 
 #' @section load functions are used to import CCAMLR Reference into R (ideally from the geoserver) and include:
 #' load_ASDs, load_SSRUs, load_RBs, load_SSMUs, load_MAs and load_EEZs provide easy loading of CCAMLR reference data 
-#' Data that is classified as "master" data is available in "GeoJSON" format and "Rdata" format is available in all load functions 
+#' Data that is classified as "master" data is available in "GEOJSON" format and "RDATA" format is available in all load functions 
 #' 
 #' @section create functions are used to create spatial data that is compatible with CCAMLR Reference data and the CCAMLR online GIS. The include:
 #'  create_Polys, create_Points, create_Lines, create_PolyGrids
@@ -21,6 +21,21 @@ NULL
 #' @name ASD_data
 NULL
 
+#' SSRU data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name SSRU_data
+NULL
+
+#' SSMU data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name SSMU_data
+NULL
+
+
 #' Coastline data
 #'  
 #' A SpatialPolygonsDataFrame. 
@@ -28,12 +43,21 @@ NULL
 #' @name Coastline_data
 NULL
 
+#' MA data
+#'  
+#' A SpatialPolygonsDataFrame. 
+#' @docType data
+#' @name MA_data
+NULL
+
+
 #' MPA data
 #'  
 #' A SpatialPolygonsDataFrame. 
 #' @docType data
 #' @name MPA_data
 NULL
+
 
 #' RB data
 #'  
@@ -48,4 +72,9 @@ NULL
 #' @docType data
 #' @name RefAreas
 NULL
+
+
+
+
+
 
