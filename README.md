@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-CCAMLRGIS
-=========
+CCAMLRGIS R package
+===================
 
 A package for reading spatial data that is displayed on the CCAMLR online GIS directly from the webpoint end service into R and creating spatial data for plotting and analyses in R or for exporting and displaying on the online GIS
 
@@ -12,7 +12,7 @@ You can install CCAMLRGIS from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("lucymerobinson/TestCCAMLRGIS")
+devtools::install_github("ccamlr/CCAMLRGIS")
 ```
 
 Example
@@ -36,10 +36,26 @@ Lats <- c(-64.0, -65.5, -65.5,-64.0)
 Coords <- data.frame(Name=rep(Name,length(Lons)),Lats=Lats,Lons=Lons)
 
 # create polygon of proposed Research area
-New_RBs <-create_Polys(Coords)
-#> Warning in `[<-`(`*tmp*`, i, value = <S4 object of class
-#> structure("Polygons", package = "sp")>): implicit list embedding of S4
-#> objects is deprecated
+New_RB <-create_Polys(Coords)
+```
+
+#### Load graticule library that will be added to map plot below
+
+``` r
+# add graticules and store locations of labels
+
+library(graticule)
+#> Loading required package: sp
+
+# create graticules for plotting below
+meridians <- seq(80,150, by = 10)
+parallels <- seq(-90, -55, by = 5)
+
+
+mlim <- c(min(meridians), max(meridians))
+plim <- c(min(parallels), max(parallels))
+grat <- graticule(lons = meridians, lats = parallels, xlim = mlim, ylim = plim, proj = raster::projection(New_RB))
+labs <- graticule_labels(meridians, parallels, xline = 140, yline = -57.5, proj = raster::projection(New_RB))
 ```
 
 #### Load ASD data and index Subarea and/or Division of interest
@@ -56,10 +72,15 @@ ASD_5841 <- ASDs[ASDs$GAR_Short_Label%in%"5841",]
 #### Generate map plot
 
 ``` r
+# plot ASD and new Research Block 
 par(mar=c(1,1,1,1))
 raster::plot(ASD_5841)
-raster::plot(New_RBs,add=TRUE,border="red")
-text(sp::coordinates(New_RBs), labels=as.character(New_RBs$name),cex=0.5,col="black")
+text(sp::coordinates(ASD_5841), labels=as.character(ASD_5841$GAR_Short_Label),cex=1,col="black")
+raster::plot(New_RB,add=TRUE,border="red")
+text(sp::coordinates(New_RB), labels=as.character(New_RB$name),cex=1,col="black")
+# add graticules to plot
+raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
+text(labs, lab = parse(text= labs$lab), col= "black", cex = 1)
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](README-unnamed-chunk-5-1.png)
