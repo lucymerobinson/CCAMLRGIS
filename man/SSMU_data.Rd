@@ -3,11 +3,11 @@
 \docType{data}
 \name{SSMU_data}
 \alias{SSMU_data}
-\title{SSMU data
- 
-A SpatialPolygonsDataFrame.}
+\title{SSMU data}
+\format{SpatialPolygonsDataFrame}
+\source{
+https://gis.ccamlr.org/home see information (i) under Management areas
+}
 \description{
 SSMU data
- 
-A SpatialPolygonsDataFrame.
 }

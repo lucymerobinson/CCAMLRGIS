@@ -3,11 +3,11 @@
 \docType{data}
 \name{Coastline_data}
 \alias{Coastline_data}
-\title{Coastline data
- 
-A SpatialPolygonsDataFrame.}
+\title{Coastline data}
+\format{SpatialPolygonsDataFrame}
+\source{
+https://gis.ccamlr.org/home see information (i) under Coastlines
+}
 \description{
 Coastline data
- 
-A SpatialPolygonsDataFrame.
 }

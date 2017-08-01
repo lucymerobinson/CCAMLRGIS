@@ -3,11 +3,11 @@
 \docType{data}
 \name{ASD_data}
 \alias{ASD_data}
-\title{ASD data
- 
-A SpatialPolygonsDataFrame.}
+\title{ASD data}
+\format{SpatialPolygonsDataFrame}
+\source{
+https://gis.ccamlr.org/home see information (i) under Management areas
+}
 \description{
 ASD data
- 
-A SpatialPolygonsDataFrame.
 }

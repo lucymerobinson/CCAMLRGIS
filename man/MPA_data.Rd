@@ -3,11 +3,11 @@
 \docType{data}
 \name{MPA_data}
 \alias{MPA_data}
-\title{MPA data
- 
-A SpatialPolygonsDataFrame.}
+\title{MPA data}
+\format{SpatialPolygonsDataFrame}
+\source{
+https://gis.ccamlr.org/home see information (i) under Management areas
+}
 \description{
 MPA data
- 
-A SpatialPolygonsDataFrame.
 }

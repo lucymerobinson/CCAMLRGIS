@@ -16,60 +16,67 @@ NULL
 
 #' ASD data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name ASD_data
 NULL
 
 #' SSRU data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name SSRU_data
 NULL
 
 #' SSMU data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name SSMU_data
 NULL
 
 
 #' Coastline data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Coastlines
 #' @name Coastline_data
 NULL
 
 #' MA data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name MA_data
 NULL
 
 
 #' MPA data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name MPA_data
 NULL
 
 
 #' RB data
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
+#' @source https://gis.ccamlr.org/home see information (i) under Management areas
 #' @name RB_data
 NULL
 
 #' RefAreas 
 #'  
-#' A SpatialPolygonsDataFrame. 
 #' @docType data
+#' @format SpatialPolygonsDataFrame
 #' @name RefAreas
 NULL
 

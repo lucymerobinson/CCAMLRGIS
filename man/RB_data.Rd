@@ -3,11 +3,11 @@
 \docType{data}
 \name{RB_data}
 \alias{RB_data}
-\title{RB data
- 
-A SpatialPolygonsDataFrame.}
+\title{RB data}
+\format{SpatialPolygonsDataFrame}
+\source{
+https://gis.ccamlr.org/home see information (i) under Management areas
+}
 \description{
 RB data
- 
-A SpatialPolygonsDataFrame.
 }

@@ -3,11 +3,8 @@
 \docType{data}
 \name{RefAreas}
 \alias{RefAreas}
-\title{RefAreas 
- 
-A SpatialPolygonsDataFrame.}
+\title{RefAreas}
+\format{SpatialPolygonsDataFrame}
 \description{
-RefAreas 
- 
-A SpatialPolygonsDataFrame.
+RefAreas
 }
