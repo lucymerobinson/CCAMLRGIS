@@ -25,3 +25,24 @@ create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 \description{
 Create Polygons that are compatible with CCAMLR online GIS
 }
+\examples{
+## specify the name of the Research block
+
+Name <-"5841_6"
+
+## specify the Longitude coordinates in decimal degrees
+
+Lons <- c(130, 130, 134, 134)
+
+## specify the Latitude coordinates in decimal degrees
+
+Lats <- c(-64.0, -65.5, -65.5,-64.0)
+
+## bind information together into a dataframe 
+
+Coords <- data.frame(Name=rep(Name,length(Lons)),Lats=Lats,Lons=Lons)
+
+## create polygon of proposed Research area
+
+New_RBs <-create_Polys(Coords)
+}

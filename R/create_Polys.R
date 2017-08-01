@@ -11,6 +11,26 @@
 #' @param Clip "Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
 #' @import rgeos rgdal raster sp
 #' @export
+#' @examples 
+#' ## specify the name of the Research block
+#' 
+#' Name <-"5841_6"
+#' 
+#' ## specify the Longitude coordinates in decimal degrees
+#' 
+#' Lons <- c(130, 130, 134, 134)
+#' 
+#' ## specify the Latitude coordinates in decimal degrees
+#' 
+#' Lats <- c(-64.0, -65.5, -65.5,-64.0)
+#' 
+#' ## bind information together into a dataframe 
+#' 
+#' Coords <- data.frame(Name=rep(Name,length(Lons)),Lats=Lats,Lons=Lons)
+#' 
+#' ## create polygon of proposed Research area
+#' 
+#' New_RBs <-create_Polys(Coords)
 
 create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Separate=0,Densify=1,Clip=0){
   # Load data
