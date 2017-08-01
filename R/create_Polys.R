@@ -117,7 +117,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       if (Separate==1 & Buffer!=0){writeOGR(SPDF,".",paste(OutputName,"_Buffered_",as.character(PID),sep=""),driver="ESRI Shapefile")}
       }
       #Add each polygon to the Group
-      Group[i]=Pls
+      Group[[i]] = Pls
       GroupData=rbind(GroupData,df)
     }
   } #end loop yes densify
@@ -174,6 +174,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       if ((dim(data)[2])==4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea);colnames(df)[2]=names(data)[4]}
       if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea)}
       
+
       SPDF=SpatialPolygonsDataFrame(SPls, df)
       proj4string(SPDF)=CRS(CRSProj)
       if(OutputFormat=="SHAPEFILE"){
@@ -182,7 +183,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       }
       
       #Add each polygon to the Group
-      Group[i]=Pls
+      Group[[i]] = Pls
       GroupData=rbind(GroupData,df)
     }
   } #end loop no densify
