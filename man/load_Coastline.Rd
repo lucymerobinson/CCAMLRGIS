@@ -12,4 +12,12 @@ load_Coastline(format)
 \description{
 Load CCAMLR Coastline based on SCAR Coastline data
 }
+\examples{
+ 
+# if online
+Coast <- load_Coastline("GEOJSON")
+
+# if offline 
+Coast <- load_Coastline("RDATA")
+}
 \keyword{Coastline}

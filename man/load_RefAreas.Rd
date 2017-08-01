@@ -7,10 +7,14 @@
 load_RefAreas(format)
 }
 \arguments{
-\item{format}{"GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package}
+\item{format}{"RDATA" will use the Spatial Polygon Data Frame last saved with the package}
 }
 \description{
 Load CCAMLR Reference Areas (RefAreas)
+}
+\examples{
+ 
+RefAreas <- load_RefAreas("RDATA")
 }
 \keyword{Reference}
 \keyword{areas}

@@ -12,6 +12,14 @@ load_SSMUs(format)
 \description{
 Load CCAMLR Small Scale Management Units (SSMUs)
 }
+\examples{
+ 
+# if online
+SSMUs <- load_SSMUs("GEOJSON")
+
+# if offline 
+SSMUs <- load_SSMUs("RDATA")
+}
 \keyword{(SSMUs)}
 \keyword{Management}
 \keyword{Scale}

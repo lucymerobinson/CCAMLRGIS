@@ -12,6 +12,14 @@ load_ASDs(format)
 \description{
 Load CCAMLR Statistical Areas and Divisions (ASDs)
 }
+\examples{
+ 
+# if online
+ASDs <- load_ASDs("GEOJSON")
+
+# if offline 
+ASDs <- load_ASDs("RDATA")
+}
 \keyword{Areas}
 \keyword{Divisions}
 \keyword{Statistical}

@@ -12,6 +12,14 @@ load_SSRUs(format)
 \description{
 Load CCAMLR Small Scale Research Units (SSRUs)
 }
+\examples{
+ 
+# if online
+SSRUs <- load_SSRUs("GEOJSON")
+
+# if offline 
+SSRUs <- load_SSRUs("RDATA")
+}
 \keyword{Research}
 \keyword{SSRU}
 \keyword{Scale}

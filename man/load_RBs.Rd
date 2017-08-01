@@ -12,5 +12,13 @@ load_RBs(format)
 \description{
 Load CCAMLR Research Blocks (RBs)
 }
+\examples{
+ 
+# if online
+RBs <- load_RBs("GEOJSON")
+
+# if offline 
+RBs <- load_RBs("RDATA")
+}
 \keyword{Blocks}
 \keyword{Research}

@@ -7,6 +7,12 @@
 #' @keywords Statistical Areas and Divisions
 #' @import rgeos rgdal raster
 #' @export
+#' @examples  
+#' # if online
+#' ASDs <- load_ASDs("GEOJSON")
+#' 
+#' # if offline 
+#' ASDs <- load_ASDs("RDATA")
 
 load_ASDs <-function(format){
   
@@ -37,6 +43,12 @@ load_ASDs <-function(format){
 #' @keywords SSRU Small Scale Research Units
 #' @import rgeos rgdal raster
 #' @export
+#' @examples  
+#' # if online
+#' SSRUs <- load_SSRUs("GEOJSON")
+#' 
+#' # if offline 
+#' SSRUs <- load_SSRUs("RDATA")
 
 
 load_SSRUs <-function(format){
@@ -68,7 +80,12 @@ load_SSRUs <-function(format){
 #' @keywords Coastline 
 #' @import rgeos rgdal raster
 #' @export
-
+#' @examples  
+#' # if online
+#' Coast <- load_Coastline("GEOJSON")
+#' 
+#' # if offline 
+#' Coast <- load_Coastline("RDATA")
 
 load_Coastline <-function(format){
   
@@ -99,7 +116,12 @@ load_Coastline <-function(format){
 #' @keywords Research Blocks
 #' @import rgeos rgdal raster
 #' @export
-
+#' @examples  
+#' # if online
+#' RBs <- load_RBs("GEOJSON")
+#' 
+#' # if offline 
+#' RBs <- load_RBs("RDATA")
 
 load_RBs <-function(format){
   
@@ -130,7 +152,12 @@ load_RBs <-function(format){
 #' @keywords Small Scale Management Units (SSMUs)
 #' @import rgeos rgdal raster
 #' @export
-
+#' @examples  
+#' # if online
+#' SSMUs <- load_SSMUs("GEOJSON")
+#' 
+#' # if offline 
+#' SSMUs <- load_SSMUs("RDATA")
 load_SSMUs <-function(format){
   
   if(format=="GEOJSON"){
@@ -157,7 +184,12 @@ load_SSMUs <-function(format){
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @import rgeos rgdal raster
 #' @export
-
+#' @examples  
+#' # if online
+#' MAs <- load_MAs("GEOJSON")
+#' 
+#' # if offline 
+#' MAs <- load_MAs("RDATA")
 
 load_MAs <-function(format){
   
@@ -184,11 +216,12 @@ load_MAs <-function(format){
 #'
 #' Load CCAMLR Reference Areas (RefAreas)
 #'
-#' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
+#' @param format  "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Reference areas
 #' @import rgeos rgdal raster
 #' @export
-
+#' @examples  
+#' RefAreas <- load_RefAreas("RDATA")
 
 load_RefAreas <-function(format){
   

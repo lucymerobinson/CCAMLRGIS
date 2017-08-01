@@ -14,3 +14,11 @@ load_MAs(format)
 Load Other Fishery Management Areas
 Load Other Fishery Management Areas
 }
+\examples{
+ 
+# if online
+MAs <- load_MAs("GEOJSON")
+
+# if offline 
+MAs <- load_MAs("RDATA")
+}
