@@ -80,7 +80,7 @@ raster::plot(New_RB,add=TRUE,border="red")
 text(sp::coordinates(New_RB), labels=as.character(New_RB$name),cex=1,col="black")
 # add graticules to plot
 raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
-text(labs, lab = parse(text= labs$lab), col= "black", cex = 1)
+text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 ```
 
 ![](README-unnamed-chunk-5-1.png)
