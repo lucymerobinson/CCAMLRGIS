@@ -12,6 +12,6 @@ DensifyData(Lon, Lat)
 \item{Lat}{Latitude coordinates (in Decimal Degrees)}
 }
 \description{
-A geoprocessing function that densifies a line or polygon data when projecting. This function is called in create_Lines and create_Polys
+A geoprocessing function that densifies a line or polygon data when projecting. This function is called in create_Polys
 }
 \keyword{Densify}

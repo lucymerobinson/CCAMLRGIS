@@ -1,6 +1,6 @@
 #' Densify line or polygon data when projecting 
 #'
-#' A geoprocessing function that densifies a line or polygon data when projecting. This function is called in create_Lines and create_Polys
+#' A geoprocessing function that densifies a line or polygon data when projecting. This function is called in create_Polys
 #'
 #' @param Lon Longitude coordinates (in Decimal Degrees)
 #' @param Lat Latitude coordinates (in Decimal Degrees)
