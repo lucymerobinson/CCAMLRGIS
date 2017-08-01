@@ -12,6 +12,7 @@
 #'  
 #' @docType package
 #' @name CCAMLRGIS
+#' @importFrom graticule graticule
 NULL
 
 #' ASD data

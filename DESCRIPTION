@@ -7,5 +7,7 @@ Depends: R (>= 3.3.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: methods, maptools, rgdal, rgeos, raster, sp
+Imports: methods, maptools, rgdal, rgeos, raster, sp,
+    graticule
 RoxygenNote: 6.0.1
+Suggests: testthat
