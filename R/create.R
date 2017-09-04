@@ -212,6 +212,8 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' @param dlat height of the grid cells in decimal degrees of latitude e.g.: dlat=0.5
 #' @param Type set according to the type of data to be gridded. If it is numerical data (e.g. Krill length, tootfish catch; see Table 4) set Type="NUM". If it is categorical data (e.g. CCAMLR Species Code, Vessel name; see Table 5), set Type="CAT".
 #' @import rgeos rgdal raster sp
+#' @importFrom stats median sd
+#' @importFrom utils read.csv
 #' @export
 
 create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,dlat,Type){
