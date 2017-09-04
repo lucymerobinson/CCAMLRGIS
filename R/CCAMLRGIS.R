@@ -7,7 +7,7 @@
 #' Data that is classified as "master" data is available in "GEOJSON" format and "RDATA" format is available in all load functions 
 #' 
 #' @section create functions are used to create spatial data that is compatible with CCAMLR Reference data and the CCAMLR online GIS. The include:
-#'  create_Polys
+#'  create_Polys and create_PolyGrids
 #'  Other functions that support the create functions include Clip2Coast and DensifyData
 #'  
 #' @docType package
