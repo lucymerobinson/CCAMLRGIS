@@ -8,7 +8,7 @@ create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
   dlon, dlat, Type)
 }
 \arguments{
-\item{InputFile}{the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe}
+\item{InputFile}{the name of the input data with format = Longitude, Latitude and Value}
 
 \item{OutputFormat}{is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile}
 
