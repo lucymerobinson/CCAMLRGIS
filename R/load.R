@@ -165,7 +165,7 @@ load_SSMUs <-function(format){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
     # unique ID issue fixed Jan 2017
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:ssmus&outputFormat=json"
-    SSMU_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON")
+    SSMU_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose=FALSE)
 
     return(SSMU_data)
   }
@@ -288,7 +288,7 @@ load_MPAs <-function(format){
 load_EEZs <-function(format){
   if(format=="GEOJSON"){
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:eez&outputFormat=json"
-    EEZ_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON")
+    EEZ_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
     return(EEZ_data)
   }
   if(format=="RDATA"){
