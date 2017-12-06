@@ -86,7 +86,7 @@ NULL
 #'  
 #' @docType data
 #' @format SpatialPolygonsDataFrame
-#' @source https://gis2.ccamlr.org/ see information (i) under Management areas
+#' @source https://gis.ccamlr.org/ see information (i) under Management areas
 #' @name EEZ_data
 NULL
 
