@@ -2,7 +2,7 @@
 #'
 #' Create Polygons that are compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe 
+#' @param InputFile  the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe with column values in the following order: Poly Name, Lats and Lons
 #' @param OutputFormat is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
@@ -205,8 +205,8 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #'
 #' Create a Polygon Grid that is compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  the name of the input data with format = Longitude, Latitude and Value
-#' @param OutputFormat is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile
+#' @param InputFile  the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe with column values in the following order: Latitude,Longitude and Value
+#' @param OutputFormat is "ROBJECT" is the default and returns the output as a SpatialPolygonDataFrame to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param dlon width of the grid cells in decimal degrees of longitude e.g. dlon=1
 #' @param dlat height of the grid cells in decimal degrees of latitude e.g.: dlat=0.5
@@ -226,8 +226,8 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
   # 
   # suppressMessages("In `[<-`(`*tmp*`, i, value = <S4 object of class Polygons>):implicit list embedding of S4 objects is deprecated")
   
-  lon=data[,1]
-  lat=data[,2]
+  lat=data[,1]
+  lon=data[,2]
   Val=data[,3]
   # Define CRS projection
   CRSProj="+proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"
