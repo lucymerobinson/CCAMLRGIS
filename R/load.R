@@ -92,8 +92,8 @@ load_Coastline <-function(format){
   if(format=="GEOJSON"){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
     # unique ID issue fixed Jan 2017
-    ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
-    Coastline_data<- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
+    ccamlrgisurl <- "https://gis2.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
+    Coastline_data <- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
     
     return(Coastline_data)
   }
@@ -164,7 +164,7 @@ load_SSMUs <-function(format){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
     # unique ID issue fixed Jan 2017
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:ssmus&outputFormat=json"
-    SSMU_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON")
+    SSMU_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose=FALSE)
 
     return(SSMU_data)
   }
@@ -196,8 +196,8 @@ load_MAs <-function(format){
   if(format=="GEOJSON"){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
     # unique ID issue fixed Jan 2017
-    ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:management_areas&outputFormat=json"
-    MA_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON")
+    ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:omas&outputFormat=json"
+    MA_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
     
     return(MA_data)
   }
@@ -226,12 +226,7 @@ load_MAs <-function(format){
 load_RefAreas <-function(format){
   
   if(format=="GEOJSON"){
-    # # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
-    # # unique ID issue fixed Jan 2017
-    # ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:research_blocks&maxFeatures=50&outputFormat=json"
-    # RB_data<- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
-    # 
-    # return(RB_data)
+    
     cat("data currently not available on the CCAMLR online GIS")
   }
   if(format=="RDATA"){
@@ -275,4 +270,22 @@ load_MPAs <-function(format){
 }
 
 
+#' Load Exclusive Economic Zones
+#'
+#' Load Exclusive Economic Zones (EEZs) that fall within the Convention Area
+#'
+#' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
+#' @keywords Exclusive Economic Zones
+#' @import rgeos rgdal raster
+#' @export
 
+load_EEZs <-function(format){
+  if(format=="GEOJSON"){
+    ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:eez&outputFormat=json"
+    EEZ_data<- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
+    return(EEZ_data)
+  }
+  if(format=="RDATA"){
+    return(EEZ_data)
+  }  
+}
