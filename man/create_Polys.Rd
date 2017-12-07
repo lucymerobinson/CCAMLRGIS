@@ -8,7 +8,7 @@ create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
   Buffer = 0, Separate = 0, Densify = 1, Clip = 0)
 }
 \arguments{
-\item{InputFile}{the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe}
+\item{InputFile}{the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe with column values in the following order: Poly Name, Lats and Lons}
 
 \item{OutputFormat}{is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile}
 
