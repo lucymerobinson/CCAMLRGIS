@@ -92,9 +92,8 @@ load_Coastline <-function(format){
   if(format=="GEOJSON"){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
     # unique ID issue fixed Jan 2017
-    ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
-    # ccamlrgisurl<- "https://gis2.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
-    Coastline_data<- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
+    ccamlrgisurl <- "https://gis2.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
+    Coastline_data <- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
     
     return(Coastline_data)
   }
@@ -227,12 +226,7 @@ load_MAs <-function(format){
 load_RefAreas <-function(format){
   
   if(format=="GEOJSON"){
-    # # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
-    # # unique ID issue fixed Jan 2017
-    # ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:research_blocks&maxFeatures=50&outputFormat=json"
-    # RB_data<- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
-    # 
-    # return(RB_data)
+    
     cat("data currently not available on the CCAMLR online GIS")
   }
   if(format=="RDATA"){
@@ -295,4 +289,3 @@ load_EEZs <-function(format){
     return(EEZ_data)
   }  
 }
-
