@@ -3,6 +3,7 @@
 export(Clip2Coast)
 export(DMSToDD)
 export(DensifyData)
+export(create_Lines)
 export(create_PolyGrids)
 export(create_Polys)
 export(load_ASDs)
