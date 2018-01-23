@@ -2,15 +2,15 @@
 % Please edit documentation in R/create.R
 \name{create_PolyGrids}
 \alias{create_PolyGrids}
-\title{Create a Polygon Grid that is compatible with CCAMLR online GIS}
+\title{Create a Polygon Grid}
 \usage{
 create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
   dlon, dlat, Type)
 }
 \arguments{
-\item{InputFile}{the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe with column values in the following order: Latitude,Longitude and Value}
+\item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value}
 
-\item{OutputFormat}{is "ROBJECT" is the default and returns the output as a SpatialPolygonDataFrame to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile}
+\item{OutputFormat}{can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.}
 
 \item{OutputName}{if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format}
 
@@ -21,5 +21,5 @@ create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 \item{Type}{set according to the type of data to be gridded. If it is numerical data (e.g. Krill length, tootfish catch; see Table 4) set Type="NUM". If it is categorical data (e.g. CCAMLR Species Code, Vessel name; see Table 5), set Type="CAT".}
 }
 \description{
-Create a Polygon Grid that is compatible with CCAMLR online GIS
+Create a Polygon Grid that can display the amount of catch taken from specifed grid cell sizes
 }
