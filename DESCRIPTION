@@ -11,4 +11,7 @@ LazyData: true
 Imports: methods, maptools, rgdal, rgeos, raster, sp,
     graticule
 RoxygenNote: 6.0.1
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
