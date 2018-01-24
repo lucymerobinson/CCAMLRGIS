@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+[![Travis build status](https://travis-ci.org/lucymerobinson/CCAMLRGIS.svg?branch=master)](https://travis-ci.org/lucymerobinson/CCAMLRGIS)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, echo = FALSE}
@@ -68,11 +70,16 @@ labs <- graticule_labels(meridians, parallels, xline = 140, yline = -57.5, proj 
 
 
 #### Load ASD data and index Subarea and/or Division of interest
-```{r} 
+```{r,eval=FALSE} 
 # load ASDs from the online GIS - you will need to be online for this to work see ?load_ASDs 
 
 ASDs <- load_ASDs("GEOJSON")
+```
+```{r,include=FALSE}
+ASDs <- load_ASDs("RDATA")
+```
 
+```{r}
 # index ASD in the area of interest - e.g. 58.4.1
 ASD_5841 <- ASDs[ASDs$GAR_Short_Label%in%"5841",]
 ```
