@@ -15,8 +15,9 @@ Load CCAMLR Small Scale Research Units (SSRUs)
 \examples{
  
 # if online
+\dontrun{
 SSRUs <- load_SSRUs("GEOJSON")
-
+}
 # if offline 
 SSRUs <- load_SSRUs("RDATA")
 }

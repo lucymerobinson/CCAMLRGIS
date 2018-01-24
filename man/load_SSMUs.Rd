@@ -15,7 +15,9 @@ Load CCAMLR Small Scale Management Units (SSMUs)
 \examples{
  
 # if online
+\dontrun{
 SSMUs <- load_SSMUs("GEOJSON")
+}
 
 # if offline 
 SSMUs <- load_SSMUs("RDATA")
