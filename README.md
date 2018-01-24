@@ -1,4 +1,6 @@
 
+[![Travis build status](https://travis-ci.org/lucymerobinson/CCAMLRGIS.svg?branch=master)](https://travis-ci.org/lucymerobinson/CCAMLRGIS)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 CCAMLRGIS R package
 ===================
@@ -64,7 +66,9 @@ labs <- graticule_labels(meridians, parallels, xline = 140, yline = -57.5, proj 
 # load ASDs from the online GIS - you will need to be online for this to work see ?load_ASDs 
 
 ASDs <- load_ASDs("GEOJSON")
+```
 
+``` r
 # index ASD in the area of interest - e.g. 58.4.1
 ASD_5841 <- ASDs[ASDs$GAR_Short_Label%in%"5841",]
 ```
@@ -83,4 +87,4 @@ raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
 text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 ```
 
-![](README-unnamed-chunk-5-1.png)
+![](README-unnamed-chunk-7-1.png)
