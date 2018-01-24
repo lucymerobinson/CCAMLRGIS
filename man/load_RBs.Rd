@@ -15,7 +15,9 @@ Load CCAMLR Research Blocks (RBs)
 \examples{
  
 # if online
+\dontrun{
 RBs <- load_RBs("GEOJSON")
+}
 
 # if offline 
 RBs <- load_RBs("RDATA")

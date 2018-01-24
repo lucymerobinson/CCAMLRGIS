@@ -9,12 +9,12 @@
 #' @export
 #' @examples  
 #' # if online
-#' ASDs <- load_ASDs("GEOJSON")
-#' 
+#' \dontrun{
+#'   ASDs <- load_ASDs("GEOJSON")
+#' }
 #' # if offline 
 #' ASDs <- load_ASDs("RDATA")
-
-load_ASDs <-function(format){
+load_ASDs <- function(format){
   
   if(format=="GEOJSON"){
     # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
@@ -45,12 +45,11 @@ load_ASDs <-function(format){
 #' @export
 #' @examples  
 #' # if online
+#' \dontrun{
 #' SSRUs <- load_SSRUs("GEOJSON")
-#' 
+#' }
 #' # if offline 
 #' SSRUs <- load_SSRUs("RDATA")
-
-
 load_SSRUs <-function(format){
   
   if(format=="GEOJSON"){
@@ -81,8 +80,10 @@ load_SSRUs <-function(format){
 #' @import rgeos rgdal raster
 #' @export
 #' @examples  
-#' # if online
+#' #if online
+#' \dontrun{
 #' Coast <- load_Coastline("GEOJSON")
+#' }
 #' 
 #' # if offline 
 #' Coast <- load_Coastline("RDATA")
@@ -118,7 +119,9 @@ load_Coastline <-function(format){
 #' @export
 #' @examples  
 #' # if online
+#' \dontrun{
 #' RBs <- load_RBs("GEOJSON")
+#' }
 #' 
 #' # if offline 
 #' RBs <- load_RBs("RDATA")
@@ -154,7 +157,9 @@ load_RBs <-function(format){
 #' @export
 #' @examples  
 #' # if online
+#' \dontrun{
 #' SSMUs <- load_SSMUs("GEOJSON")
+#' }
 #' 
 #' # if offline 
 #' SSMUs <- load_SSMUs("RDATA")
@@ -186,11 +191,11 @@ load_SSMUs <-function(format){
 #' @export
 #' @examples  
 #' # if online
+#' \dontrun{
 #' MAs <- load_MAs("GEOJSON")
-#' 
+#' }
 #' # if offline 
 #' MAs <- load_MAs("RDATA")
-
 load_MAs <-function(format){
   
   if(format=="GEOJSON"){

@@ -17,8 +17,9 @@ Load Other Fishery Management Areas
 \examples{
  
 # if online
+\dontrun{
 MAs <- load_MAs("GEOJSON")
-
+}
 # if offline 
 MAs <- load_MAs("RDATA")
 }
