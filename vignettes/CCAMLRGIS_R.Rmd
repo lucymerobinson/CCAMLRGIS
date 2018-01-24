@@ -19,12 +19,13 @@ The main purpose of this package is to:
 
 To understand what is covered in this vignette, you must understand the basics of the R language. There are a number of on-line and other resources that can help you to get acquainted with it. The CCAMLRGIS package does not operate in isolation. There are a number of R package that the CCAMLRGIS pacakge requires and other R packages that it compliments. Package requirements can be viewed under Imports in the DESCRIPTION file and in individual functions. 
 
-One complimentary package is "graticule". Graticules are the longitude latitude lines shown on a projected map, and defining and drawing these lines is not easy to automate. The graticule package provides the tools to create and draw these lines by explicit specification by the user. The relevant functions from the graticule package will be included in examples provided below.
+One complementary package is "graticule". Graticules are the lines of constant longitude and latitude shown on a projected map, and defining and drawing these lines is not easy to automate. The graticule package provides the tools to create and draw these lines by explicit specification by the user. The relevant functions from the graticule package will be included in examples provided below.
 
 To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages("devtools")) and then use the following command:
 
+```{r, eval = FALSE}
 devtools::install_github("ccamlr/CCAMLRGIS")
-
+}
 ## Creating Polygons
 
 Polygon data often needs to be created when new scientific research areas and/or management areas are being proposed. The create_Polys function has been developed to create polygons that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
@@ -64,11 +65,17 @@ CCAMLR's reference data include management areas, defined in Conservation Measur
 
 ### Example of loading the ASD's into R from the online repository
 
-```{r}
+```{r,eval=FALSE}
 # load ASDs from the online GIS - you will need to be online for this to work see 
 ?load_ASDs 
 ASDs <- load_ASDs("GEOJSON")
+```
 
+```{r, include = FALSE}
+## fakey it
+ASDs <- load_ASDs("RDATA")
+```
+```{r}
 # index ASD in the area of interest - e.g. 58.4.1
 ASD_5841 <- ASDs[ASDs$GAR_Short_Label%in%"5841",]
 

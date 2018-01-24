@@ -15,8 +15,9 @@ Load CCAMLR Statistical Areas and Divisions (ASDs)
 \examples{
  
 # if online
-ASDs <- load_ASDs("GEOJSON")
-
+\dontrun{
+  ASDs <- load_ASDs("GEOJSON")
+}
 # if offline 
 ASDs <- load_ASDs("RDATA")
 }
