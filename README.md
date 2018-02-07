@@ -14,7 +14,7 @@ You can install CCAMLRGIS from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ccamlr/CCAMLRGIS")
+devtools::install_github("lucymerobinson/CCAMLRGIS",build_vignettes=TRUE)
 ```
 
 Example
