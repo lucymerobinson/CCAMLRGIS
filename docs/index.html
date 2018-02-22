@@ -80,74 +80,14 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install CCAMLRGIS from github with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ccamlr/CCAMLRGIS"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<div id="prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest" class="section level3">
-<h3 class="hasAnchor">
-<a href="#prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest" class="anchor"></a>Prepare a simple map of a proposed Research Block with a CCAMLR Subarea of interest</h3>
-<div id="load-ccamlrgis-library-and-create-a-proposed-research-block" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-ccamlrgis-library-and-create-a-proposed-research-block" class="anchor"></a>Load CCAMLRGIS library and create a proposed Research block</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CCAMLRGIS)
-<span class="co"># Create research block polygon </span>
-
-<span class="co"># specify the name of the Research block</span>
-Name &lt;-<span class="st">"5841_6"</span>
-<span class="co"># specify the Longitude coordinates in decimal degrees</span>
-Lons &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">130</span>, <span class="dv">130</span>, <span class="dv">134</span>, <span class="dv">134</span>)
-<span class="co"># sepcify the Latitude coordinates in decimal degrees</span>
-Lats &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">64.0</span>, <span class="op">-</span><span class="fl">65.5</span>, <span class="op">-</span><span class="fl">65.5</span>,<span class="op">-</span><span class="fl">64.0</span>)
-<span class="co"># bind information together into a dataframe for input into the create_Polys function see ?create_Polys </span>
-Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name=</span><span class="kw">rep</span>(Name,<span class="kw">length</span>(Lons)),<span class="dt">Lats=</span>Lats,<span class="dt">Lons=</span>Lons)
-
-<span class="co"># create polygon of proposed Research area</span>
-New_RB &lt;-<span class="kw"><a href="reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
-</div>
-<div id="load-graticule-library-that-will-be-added-to-map-plot-below" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-graticule-library-that-will-be-added-to-map-plot-below" class="anchor"></a>Load graticule library that will be added to map plot below</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add graticules and store locations of labels</span>
-
-<span class="kw">library</span>(graticule)
-<span class="co">#&gt; Loading required package: sp</span>
-
-<span class="co"># create graticules for plotting below</span>
-meridians &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">80</span>,<span class="dv">150</span>, <span class="dt">by =</span> <span class="dv">10</span>)
-parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">55</span>, <span class="dt">by =</span> <span class="dv">5</span>)
-
-
-mlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(meridians), <span class="kw">max</span>(meridians))
-plim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(parallels), <span class="kw">max</span>(parallels))
-grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))
-labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="dv">140</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="fl">57.5</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))</code></pre></div>
-</div>
-<div id="load-asd-data-and-index-subarea-andor-division-of-interest" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-asd-data-and-index-subarea-andor-division-of-interest" class="anchor"></a>Load ASD data and index Subarea and/or Division of interest</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load ASDs from the online GIS - you will need to be online for this to work see ?load_ASDs </span>
-
-ASDs &lt;-<span class="st"> </span><span class="kw"><a href="reference/load_ASDs.html">load_ASDs</a></span>(<span class="st">"GEOJSON"</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># index ASD in the area of interest - e.g. 58.4.1</span>
-ASD_<span class="dv">5841</span> &lt;-<span class="st"> </span>ASDs[ASDs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"5841"</span>,]</code></pre></div>
-</div>
-<div id="generate-map-plot" class="section level4">
-<h4 class="hasAnchor">
-<a href="#generate-map-plot" class="anchor"></a>Generate map plot</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot ASD and new Research Block </span>
-<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(ASD_<span class="dv">5841</span>)
-<span class="kw">text</span>(sp<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/coordinates">coordinates</a></span>(ASD_<span class="dv">5841</span>), <span class="dt">labels=</span><span class="kw">as.character</span>(ASD_<span class="dv">5841</span><span class="op">$</span>GAR_Short_Label),<span class="dt">cex=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="st">"black"</span>)
-raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(New_RB,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">border=</span><span class="st">"red"</span>)
-<span class="kw">text</span>(sp<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/coordinates">coordinates</a></span>(New_RB), <span class="dt">labels=</span><span class="kw">as.character</span>(New_RB<span class="op">$</span>name),<span class="dt">cex=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="st">"black"</span>)
-<span class="co"># add graticules to plot</span>
-raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(grat, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>)
-<span class="kw">text</span>(labs, <span class="dt">lab =</span> <span class="kw">parse</span>(<span class="dt">text=</span> labs<span class="op">$</span>lab), <span class="dt">col=</span> <span class="st">"black"</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="README-unnamed-chunk-7-1.png" width="672"></p>
-</div>
-</div>
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<p>Vignettes provide examples of how functions in the package work. To browse vigenettes you can follow the install instructions above and then use: browseVignettes(“CCAMLRGIS”)</p>
+<p>Or if you want to browse examples online prior to install these can be accesses at: <a href="https://lucymerobinson.github.io/CCAMLRGIS/" class="uri">https://lucymerobinson.github.io/CCAMLRGIS/</a></p>
+<p>To view the worked examples navigate to the Articles tab at the top of the page and select the “Introduction to the CCAMLRGIS R package”</p>
 </div>
 </div>
 </div>

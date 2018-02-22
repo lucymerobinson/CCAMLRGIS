@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-02-06</h4>
+            <h4 class="date">2018-02-23</h4>
           </div>
 
     
@@ -79,19 +79,19 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This vignette describes the R package “CCAMLRGIS”. The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (<a href="https://gis.ccamlr.org/" class="uri">https://gis.ccamlr.org/</a>) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR’s Conservation Measures or in Scientific Committe reports.</p>
 <p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with the projection and processing choices that have been agreed by CCAMLR (or something along these lines)</p>
-<p>To understand what is covered in this vignette, you must understand the basics of the R language. There are a number of on-line and other resources that can help you to get acquainted with it. The CCAMLRGIS package does not operate in isolation. There are a number of R package that the CCAMLRGIS pacakge requires and other R packages that it compliments. Package requirements can be viewed under Imports in the DESCRIPTION file and in individual functions.</p>
+<p>To understand what is covered in this vignette, you must understand the basics of the R language. There are a number of on-line and other resources that can help you to get acquainted with it. The CCAMLRGIS package does not operate in isolation. There are a number of R package that the CCAMLRGIS package requires and other R packages that it compliments. Package requirements can be viewed under Imports in the DESCRIPTION file and in individual functions.</p>
 <p>One complementary package is “graticule”. Graticules are the lines of constant longitude and latitude shown on a projected map, and defining and drawing these lines is not easy to automate. The graticule package provides the tools to create and draw these lines by explicit specification by the user. The relevant functions from the graticule package will be included in examples provided below.</p>
 <p>To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages(“devtools”)) and then use the following command:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ccamlr/CCAMLRGIS"</span>)
-<span class="er">}</span>
-## Creating Polygons
-
-Polygon data often needs to be created when new scientific research areas and<span class="op">/</span>or management areas are being proposed. The create_Polys <span class="cf">function</span> has been developed to create polygons that conform to CCAMLR<span class="st">'s standards/specifications that can be used in analyses or to generate maps in R. </span>
-
-<span class="st">See ?create_Polys for function input specifications</span>
-
-
-<span class="st">### Example of creating a proposed Research block</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="creating-polygons" class="section level2">
+<h2 class="hasAnchor">
+<a href="#creating-polygons" class="anchor"></a>Creating Polygons</h2>
+<p>Polygon data often needs to be created when new scientific research areas and/or management areas are being proposed. The create_Polys function has been developed to create polygons that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>See ?create_Polys for function input specifications</p>
+<div id="example-of-creating-a-proposed-research-block" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example-of-creating-a-proposed-research-block" class="anchor"></a>Example of creating a proposed Research block</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CCAMLRGIS)
 <span class="co"># Create research block polygon </span>
 
@@ -109,6 +109,7 @@ Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
 New_RB &lt;-<span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
 <p>The SpatialPolygonDataFrame “New_RB”" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and OutputName=“RB_5841_6”</p>
+</div>
 </div>
 <div id="loading-ccamlrs-reference-data-from-the-online-gis-into-r" class="section level2">
 <h2 class="hasAnchor">
@@ -237,6 +238,7 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#creating-polygons">Creating Polygons</a></li>
       <li><a href="#loading-ccamlrs-reference-data-from-the-online-gis-into-r">Loading CCAMLR’s reference data from the online GIS into R</a></li>
       <li><a href="#prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest">Prepare a simple map of a proposed Research Block with a CCAMLR Subarea of interest</a></li>
       <li><a href="#prepare-a-simple-map-of-the-polygon-grid-with-a-ccamlr-subarea-of-interest">Prepare a simple map of the Polygon Grid with a CCAMLR Subarea of interest</a></li>
