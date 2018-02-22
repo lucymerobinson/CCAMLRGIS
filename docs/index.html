@@ -99,7 +99,7 @@ Name &lt;-<span class="st">"5841_6"</span>
 <span class="co"># specify the Longitude coordinates in decimal degrees</span>
 Lons &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">130</span>, <span class="dv">130</span>, <span class="dv">134</span>, <span class="dv">134</span>)
 <span class="co"># sepcify the Latitude coordinates in decimal degrees</span>
-Lats &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">64.0</span>, <span class="fl">-65.5</span>, <span class="fl">-65.5</span>,<span class="op">-</span><span class="fl">64.0</span>)
+Lats &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">64.0</span>, <span class="op">-</span><span class="fl">65.5</span>, <span class="op">-</span><span class="fl">65.5</span>,<span class="op">-</span><span class="fl">64.0</span>)
 <span class="co"># bind information together into a dataframe for input into the create_Polys function see ?create_Polys </span>
 Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name=</span><span class="kw">rep</span>(Name,<span class="kw">length</span>(Lons)),<span class="dt">Lats=</span>Lats,<span class="dt">Lons=</span>Lons)
 
@@ -116,13 +116,13 @@ New_RB &lt;-<span class="kw"><a href="reference/create_Polys.html">create_Polys<
 
 <span class="co"># create graticules for plotting below</span>
 meridians &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">80</span>,<span class="dv">150</span>, <span class="dt">by =</span> <span class="dv">10</span>)
-parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="dv">-55</span>, <span class="dt">by =</span> <span class="dv">5</span>)
+parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">55</span>, <span class="dt">by =</span> <span class="dv">5</span>)
 
 
 mlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(meridians), <span class="kw">max</span>(meridians))
 plim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(parallels), <span class="kw">max</span>(parallels))
 grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))
-labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="dv">140</span>, <span class="dt">yline =</span> <span class="fl">-57.5</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))</code></pre></div>
+labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="dv">140</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="fl">57.5</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))</code></pre></div>
 </div>
 <div id="load-asd-data-and-index-subarea-andor-division-of-interest" class="section level4">
 <h4 class="hasAnchor">
