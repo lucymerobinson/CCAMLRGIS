@@ -4,22 +4,46 @@
 \alias{create_Lines}
 \title{Create Lines}
 \usage{
-create_Lines(InputFile, OutputName, Buffer = 0, Separate = 0, Densify = 1,
-  Clip = 0)
+create_Lines(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
+  Buffer = 0, Densify = 1, Clip = 0)
 }
 \arguments{
-\item{InputFile}{currently, the name of the input data file in quotes e.g. "DataFile.csv", but I want to change this so you can choose between R dataframe or csv file}
+\item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude}
 
-\item{OutputName}{currently, the name of the output shapefile in quotes e.g."MyShape" but I want to change this to "ROBJECT" is temporarily stored in work environment, "RDATA" will write an .rda file or "SHAPEFILE" with write an ESRI Shapefile}
+\item{OutputFormat}{can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialLinesDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.}
+
+\item{OutputName}{if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format}
 
 \item{Buffer}{is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer}
-
-\item{Separate}{currently, If the data file contains several items (e.g. several fishing lines) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. I want to remove this as I think you can manage this at the input end.}
 
 \item{Densify}{is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added}
 
 \item{Clip}{"Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
 }
+\value{
+Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function
+}
 \description{
 Create Lines that are compatible with CCAMLR online GIS
+}
+\examples{
+## specify the name of the line
+
+Name <- rep("Set_1",2)
+
+## specify the Longitude coordinates in decimal degrees
+
+Lon <- c(-120,-122)
+
+## specify the Latitude coordinates in decimal degrees
+
+Lat<- c(-65,-65)
+
+## bind information together into a dataframe 
+
+Coords<- data.frame(Name=Name,Lat=Lat,Lon=Lon)
+
+## create lines 
+
+New_Lines <- create_Lines(Coords)
 }
