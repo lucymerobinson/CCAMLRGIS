@@ -21,7 +21,7 @@ create_Lines(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 \item{Clip}{"Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
 }
 \value{
-Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function
+Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function. If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This is calculated using the gArea function from the sp package
 }
 \description{
 Create Lines that are compatible with CCAMLR online GIS
