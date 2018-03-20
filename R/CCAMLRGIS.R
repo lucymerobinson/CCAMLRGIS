@@ -11,7 +11,7 @@
 #'  Other functions that support the create functions include Clip2Coast and DensifyData
 #'  
 #' @section Vignettes:
-#' To learn more about tagr, start with the vignettes:
+#' To learn more about CCAMLRGIS, start with the vignettes:
 #' \code{browseVignettes(package = "CCAMLRGIS")}
 #' 
 #' 
