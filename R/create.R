@@ -318,7 +318,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
 #' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
-#' @return Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function. If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This is calculated using the gArea function from the sp package
+#' @return Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function. If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package
 #' @import rgeos rgdal raster sp
 #' @export
 #' @examples 
@@ -607,7 +607,7 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
 #' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
-#' @return Returns points 
+#' @return Returns points with attributed "Name", "Lat" and "Long". If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package
 #' @import rgeos rgdal raster sp
 #' @export
 #' @examples 
