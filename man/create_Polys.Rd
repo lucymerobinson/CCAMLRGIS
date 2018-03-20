@@ -22,6 +22,9 @@ create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 
 \item{Clip}{"Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
 }
+\value{
+Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function
+}
 \description{
 Create Polygons such as proposed Research Blocks or Marine Protected Areas
 }

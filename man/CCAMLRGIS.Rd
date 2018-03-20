@@ -22,7 +22,7 @@ Data that is classified as "master" data is available in "GEOJSON" format and "R
 
 \section{Vignettes}{
 
-To learn more about tagr, start with the vignettes:
+To learn more about CCAMLRGIS, start with the vignettes:
 \code{browseVignettes(package = "CCAMLRGIS")}
 }
 

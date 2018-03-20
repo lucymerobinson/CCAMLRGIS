@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-02-23</h4>
+            <h4 class="date">2018-03-20</h4>
           </div>
 
     
@@ -107,7 +107,7 @@ Lons &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">13
 Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name=</span><span class="kw">rep</span>(Name,<span class="kw">length</span>(Lons)),<span class="dt">Lats=</span>Lats,<span class="dt">Lons=</span>Lons)
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
-New_RB &lt;-<span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
+New_RB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
 <p>The SpatialPolygonDataFrame “New_RB”" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and OutputName=“RB_5841_6”</p>
 </div>
 </div>
@@ -182,7 +182,7 @@ Catch &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="
 Catch_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Lats=</span>Lats,<span class="dt">Lons=</span>Lons,<span class="dt">Catch=</span>Catch)
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
-New_Grid &lt;-<span class="kw"><a href="../reference/create_PolyGrids.html">create_PolyGrids</a></span>(Catch_data,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>,<span class="dt">Type =</span> <span class="st">"NUM"</span>)</code></pre></div>
+New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_PolyGrids.html">create_PolyGrids</a></span>(Catch_data,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>,<span class="dt">Type =</span> <span class="st">"NUM"</span>)</code></pre></div>
 <p>The SpatialPolygonDataFrame “New_Grid”" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and OutputName=“KrillCatch_Grid”</p>
 </div>
 </div>
@@ -194,8 +194,7 @@ New_Grid &lt;-<span class="kw"><a href="../reference/create_PolyGrids.html">crea
 <a href="#install-and-load-classint-and-rcolorbrewer-package-" class="anchor"></a>install and load classInt and RColorBrewer package.</h3>
 <p>The ClassInt package will find appropriate intervals for plotting</p>
 <p>The RColorBrewer package provides a variety of color ramps for plotting</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add graticules and store locations of labels</span>
-<span class="co"># install.packages(c("classInt","RColorBrewer"))</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(c("classInt","RColorBrewer"))</span>
 <span class="kw">library</span>(classInt)
 <span class="kw">library</span>(RColorBrewer)</code></pre></div>
 </div>
