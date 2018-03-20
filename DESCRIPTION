@@ -1,6 +1,6 @@
 Package: CCAMLRGIS
 Title: bridging R and the CCAMLR online GIS
-Version: 2.0.3.9000
+Version: 2.1.0.9000
 Date: 2017-09-15
 Authors@R: c(person("Stephane","Thanassekos",role = c("aut")), person("Lucy", "Robinson", email = "lucy.robinson@ccamlr.org",role = c("aut", "cre")),person("Michael D.","Sumner", role = "ctb", email = "mdsumner@gmail.com"))
 Description: An R package for loading and creating spatial data that is compatible with the CCAMLR online GIS.
