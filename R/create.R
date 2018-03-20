@@ -9,9 +9,10 @@
 #' @param Separate currently, if the data file contains several items (e.g. several proposed management areas) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. 
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
 #' @param Clip "Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @return Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function 
 #' @import rgeos rgdal raster sp
 #' @export
-#' @examples 
+#' @examples
 #' ## specify the name of the Research block
 #' 
 #' Name <-"5841_6"
@@ -210,13 +211,13 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param dlon width of the grid cells in decimal degrees of longitude e.g. dlon=1
 #' @param dlat height of the grid cells in decimal degrees of latitude e.g.: dlat=0.5
-#' @param Type set according to the type of data to be gridded. If it is numerical data (e.g. Krill length, tootfish catch; see Table 4) set Type="NUM". If it is categorical data (e.g. CCAMLR Species Code, Vessel name; see Table 5), set Type="CAT".
+#' @return Returns polygons in R or output to ESRI shapefile format with attributes that summarise the points included in each polygon. These summary attributes include a count ("Count"), maximum ("Max"), minimum ("Min)", mean ("Mean), standard deviation ("StdDev"), median ("Median") and sum ("Sum").
 #' @import rgeos rgdal raster sp
 #' @importFrom stats median sd
 #' @importFrom utils read.csv
 #' @export
 
-create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,dlat,Type){
+create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,dlat){
   if (class(InputFile)=="character"){
     data=read.csv(InputFile)}else{
       data=InputFile  
@@ -311,93 +312,44 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
     }else{
       return(Group)
     }
-  }#End of numerical variables
-  if (Type=="CAT"){#Start of categorical variables
-    
-    GVal=as.character(Val)
-    GVals=sort(unique(GVal))
-    
-    VAL=NULL
-    for (icat in GVals){
-      CountVal=rep(0,length(GVal))
-      CountVal[GVal==icat]=1
-      GriddedData=as.data.frame(cbind(Glon,Glat,CountVal))
-      GriddedData_CountVal=aggregate(CountVal~Glon+Glat,data=GriddedData,sum)
-      VAL=rbind(VAL,GriddedData_CountVal[,3])
-    }
-    
-    
-    GriddedData_CountALL=aggregate(rep(1,length(Glon))~Glon+Glat,data=GriddedData,sum)
-    GLONS=GriddedData_CountALL[,1]
-    GLATS=GriddedData_CountALL[,2]
-    ALL=GriddedData_CountALL[,3]
-    
-    
-    
-    for (i in (1:length(GLONS))){ #Loop over polygons
-      
-      PLon=c(GLONS[i]-dlon/2,
-             GLONS[i]+dlon/2,
-             GLONS[i]+dlon/2,
-             GLONS[i]-dlon/2)
-      PLat=c(GLATS[i]+dlat/2,
-             GLATS[i]+dlat/2,
-             GLATS[i]-dlat/2,
-             GLATS[i]-dlat/2)
-      
-      PCountALL=ALL[i]
-      PCountVal=VAL[,i]
-      Perc=round(100*PCountVal/PCountALL,2)
-      #Project Lat/Lon
-      PRO=project(cbind(PLon,PLat),CRSProj)
-      PLon=c(PRO[,1],PRO[1,1])
-      PLat=c(PRO[,2],PRO[1,2])
-      rm(PRO)
-      
-      #Create individual Polygons
-      Pl=Polygon(cbind(PLon,PLat))
-      Pls=suppressWarnings(Polygons(list(Pl), ID=i))
-      SPls=suppressWarnings(SpatialPolygons(list(Pls)))
-      
-      df=data.frame(name=names(data)[3],row.names=i,PCountALL,t(PCountVal),t(Perc))
-      colnames(df)[2:(dim(df)[2])]=c("All",GVals,paste(GVals,"(%)",sep=""))
-      
-      SPDF=SpatialPolygonsDataFrame(SPls, df)
-      proj4string(SPDF)=CRS(CRSProj)
-      
-      #Add each polygon to the Group
-      Group[[i]]=Pls
-      GroupData=rbind(GroupData,df)
-    }
-    
-    #Collate Group
-    Group=SpatialPolygons(Group)
-    Group=SpatialPolygonsDataFrame(Group,GroupData)
-    proj4string(Group)=CRS(CRSProj)
-    
-    if(OutputFormat=="SHAPEFILE"){
-      writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
-    }else{
-      return(Group)
-    }
   }
-  if (Type!="CAT" & Type!="NUM"){cat("Wrong 'Type'")}
 }
 
 #' Create Lines 
 #'
 #' Create Lines that are compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  currently, the name of the input data file in quotes e.g. "DataFile.csv", but I want to change this so you can choose between R dataframe or csv file 
-#' @param OutputName  currently, the name of the output shapefile in quotes e.g."MyShape" but I want to change this to "ROBJECT" is temporarily stored in work environment, "RDATA" will write an .rda file or "SHAPEFILE" with write an ESRI Shapefile
+#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
+#' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialLinesDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
+#' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
-#' @param Separate currently, If the data file contains several items (e.g. several fishing lines) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. I want to remove this as I think you can manage this at the input end.
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
 #' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @return Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function. If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This is calculated using the gArea function from the sp package
 #' @import rgeos rgdal raster sp
 #' @export
+#' @examples 
+#' ## specify the name of the line
+#' 
+#' Name <- rep("Set_1",2)
+#' 
+#' ## specify the Longitude coordinates in decimal degrees
+#' 
+#' Lon <- c(-120,-122)
+#' 
+#' ## specify the Latitude coordinates in decimal degrees
+#' 
+#' Lat<- c(-65,-65)
+#' 
+#' ## bind information together into a dataframe 
+#' 
+#' Coords<- data.frame(Name=Name,Lat=Lat,Lon=Lon)
+#' 
+#' ## create lines 
+#' 
+#' New_Lines <- create_Lines(Coords)
 
-create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0){
+create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=0){
   if (class(InputFile)=="character"){
     data=utils::read.csv(InputFile)}else{
       data=InputFile  
@@ -454,17 +406,19 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
         if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,LengthKm=Length,LengthNm=Lengthnm)}
         SPDF=SpatialLinesDataFrame(SPls, df)
         proj4string(SPDF)=CRS(CRSProj)
-        if (Separate==1){writeOGR(SPDF,".",paste(OutputName,"_",as.character(PID),sep=""),driver="ESRI Shapefile")}
         #Add each Line to the Group
-        Group[i]=Pls
+        Group[[i]]=Pls
         GroupData=rbind(GroupData,df)
         
       }
       Group=SpatialLines(Group)
       Group=SpatialLinesDataFrame(Group,GroupData)
       proj4string(Group)=CRS(CRSProj)
-      if (Separate==1){writeOGR(Group,".",paste(OutputName,"_Group",sep=""),driver="ESRI Shapefile")}
-      else{writeOGR(Group,".",OutputName,driver="ESRI Shapefile")}
+      if(OutputFormat=="SHAPEFILE"){
+        writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+      }else{
+        return(Group)
+      }
     }
     else #Add BUFFER
     {for (i in (1:length(ListIDs))){ #Loop over Lines
@@ -521,17 +475,19 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
       if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea,LengthKm=Length,LengthNm=Lengthnm)}
       SPDF=SpatialPolygonsDataFrame(SPls, df)
       proj4string(SPDF)=CRS(CRSProj)
-      if (Separate==1){writeOGR(SPDF,".",paste(OutputName,"_Buffered_",as.character(PID),sep=""),driver="ESRI Shapefile")}
       #Add each polygon to the Group
-      Group[i]=Pls
+      Group[[i]]=Pls
       GroupData=rbind(GroupData,df)
       
     }
       Group=SpatialPolygons(Group)
       Group=SpatialPolygonsDataFrame(Group,GroupData)
       proj4string(Group)=CRS(CRSProj)
-      if (Separate==1){writeOGR(Group,".",paste(OutputName,"_Buffered_Group",sep=""),driver="ESRI Shapefile")}
-      else{writeOGR(Group,".",paste(OutputName,"_Buffered",sep=""),driver="ESRI Shapefile")}
+      if(OutputFormat=="SHAPEFILE"){
+        writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+      }else{
+        return(Group)
+      }
     }
   } #end of yes densify
   
@@ -567,17 +523,19 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
         if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,LengthKm=Length,LengthNm=Lengthnm)}
         SPDF=SpatialLinesDataFrame(SPls, df)
         proj4string(SPDF)=CRS(CRSProj)
-        if (Separate==1){writeOGR(SPDF,".",paste(OutputName,"_",as.character(PID),sep=""),driver="ESRI Shapefile")}
-        #Add each Line to the Group
-        Group[i]=Pls
+         #Add each Line to the Group
+        Group[[i]]=Pls
         GroupData=rbind(GroupData,df)
         
       }
       Group=SpatialLines(Group)
       Group=SpatialLinesDataFrame(Group,GroupData)
       proj4string(Group)=CRS(CRSProj)
-      if (Separate==1){writeOGR(Group,".",paste(OutputName,"_Group",sep=""),driver="ESRI Shapefile")}
-      else{writeOGR(Group,".",OutputName,driver="ESRI Shapefile")}
+      if(OutputFormat=="SHAPEFILE"){
+        writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+      }else{
+        return(Group)
+      }
     }
     else #Add BUFFER
     {for (i in (1:length(ListIDs))){ #Loop over Lines
@@ -628,18 +586,182 @@ create_Lines=function(InputFile,OutputName,Buffer=0,Separate=0,Densify=1,Clip=0)
       if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea,LengthKm=Length,LengthNm=Lengthnm)}
       SPDF=SpatialPolygonsDataFrame(SPls, df)
       proj4string(SPDF)=CRS(CRSProj)
-      if (Separate==1){writeOGR(SPDF,".",paste(OutputName,"_Buffered_",as.character(PID),sep=""),driver="ESRI Shapefile")}
       #Add each polygon to the Group
-      Group[i]=Pls
+      Group[[i]]=Pls
       GroupData=rbind(GroupData,df)
       
     }
       Group=SpatialPolygons(Group)
       Group=SpatialPolygonsDataFrame(Group,GroupData)
       proj4string(Group)=CRS(CRSProj)
-      if (Separate==1){writeOGR(Group,".",paste(OutputName,"_Buffered_Group",sep=""),driver="ESRI Shapefile")}
-      else{writeOGR(Group,".",paste(OutputName,"_Buffered",sep=""),driver="ESRI Shapefile")}
+      if(OutputFormat=="SHAPEFILE"){
+        writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+      }else{
+        return(Group)
+      }
     }
   } #end of no densify
   
 }
+
+
+#' Create Points that are compatible with CCAMLR online GIS 
+#'
+#' Create Points that are compatible with CCAMLR online GIS 
+#'
+#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
+#' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPointsDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
+#' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
+#' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
+#' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @return Returns points 
+#' @import rgeos rgdal raster sp
+#' @export
+#' @examples 
+#' ## specify the name of the points
+#' 
+#' Name <- c("Point_1","Point_2","Point_3")
+#' 
+#' ## specify the Latitude coordinates in decimal degrees
+#' 
+#' Lat<- c(-70.2,-70.1,-69.9)
+#' 
+#' ## specify the Longitude coordinates in decimal degrees
+#' 
+#' Lon <- c(-160,-161,-159)
+#' 
+#' ## bind information together into a dataframe 
+#' 
+#' Coords<- data.frame(Name=Name,Lat=Lat,Lon=Lon)
+#' 
+#' ## create points 
+#' 
+#' New_Points <- create_Points(Coords)
+
+
+create_Points=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Clip=0){
+  if (class(InputFile)=="character"){
+    data=read.csv(InputFile)}else{
+      data=InputFile  
+    }
+  IDs=as.character(data[,1])
+  ListIDs=sort(unique(IDs))
+  Lats=data[,2]
+  Lons=data[,3]
+  if (dim(data)[2]>3){XtraFields=data[,(4:(dim(data)[2]))]}
+  # Prepare Group, the output file which will contain all polygons
+  Group=list()
+  GroupData=NULL
+  # Define CRS projection
+  CRSProj="+proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"
+  # Set Buffer (Convert Nautical miles to meters)
+  Buffer=Buffer*1852
+  
+  if (Buffer==0){
+    Group=NULL
+    for (i in (1:length(ListIDs))){ #Loop over Lines
+      
+      PID=ListIDs[i]
+      PLon=Lons[IDs==PID]
+      PLat=Lats[IDs==PID]
+      LLon=PLon
+      LLat=PLat
+      
+      if ((dim(data)[2])==3){PVal=NULL}
+      if ((dim(data)[2])==4){PVal=unique(XtraFields[IDs==PID])
+      if(length(PVal)>1){cat(paste("ERROR: There is more than one value in metadata associated with polygon",PID),"\n");break}}
+      if ((dim(data)[2])>4){PVal=unique(XtraFields[IDs==PID,])
+      if(dim(PVal)[1]>1){cat(paste("ERROR: There is more than one value in metadata associated with polygon",PID),"\n");break}}
+      
+      #Project Lat/Lon
+      PRO=project(cbind(PLon,PLat),CRSProj)
+      PLon=PRO[,1]
+      PLat=PRO[,2]
+      rm(PRO)
+      
+      #Create individual Points
+      SPls=SpatialPoints(cbind(PLon,PLat))
+      
+      if ((dim(data)[2])==3){df=data.frame(name=PID,row.names=PID,Lat=LLat,Lon=LLon)}
+      if ((dim(data)[2])==4){df=data.frame(name=PID,row.names=PID,PVal,Lat=LLat,Lon=LLon);colnames(df)[2]=names(data)[4]}
+      if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,Lat=LLat,Lon=LLon)}
+      SPDF=SpatialPointsDataFrame(SPls, df)
+      proj4string(SPDF)=CRS(CRSProj)
+      #Add each Line to the Group
+      Group=rbind(Group,c(PLon,PLat))
+      GroupData=rbind(GroupData,df)
+      
+    }
+    Group=SpatialPoints(Group)
+    Group=SpatialPointsDataFrame(Group,GroupData)
+    proj4string(Group)=CRS(CRSProj)
+    if(OutputFormat=="SHAPEFILE"){
+      writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+    }else{
+      return(Group)
+    }
+  }
+  else #Add BUFFER
+  {for (i in (1:length(ListIDs))){ #Loop over Lines
+    
+    PID=ListIDs[i]
+    PLon=Lons[IDs==PID]
+    PLat=Lats[IDs==PID]
+    LLon=PLon
+    LLat=PLat
+    
+    if ((dim(data)[2])==3){PVal=NULL}
+    if ((dim(data)[2])==4){PVal=unique(XtraFields[IDs==PID])
+    if(length(PVal)>1){cat(paste("ERROR: There is more than one value in metadata associated with polygon",PID),"\n");break}}
+    if ((dim(data)[2])>4){PVal=unique(XtraFields[IDs==PID,])
+    if(dim(PVal)[1]>1){cat(paste("ERROR: There is more than one value in metadata associated with polygon",PID),"\n");break}}
+    
+    #Project Lat/Lon
+    PRO=project(cbind(PLon,PLat),CRSProj)
+    PLon=PRO[,1]
+    PLat=PRO[,2]
+    rm(PRO)
+    
+    #Create individual Points
+    SPls=SpatialPoints(cbind(PLon,PLat))
+    
+    Buffered=gBuffer(SPls,width=Buffer)
+    PLon=Buffered@polygons[[1]]@Polygons[[1]]@coords[,1]
+    PLat=Buffered@polygons[[1]]@Polygons[[1]]@coords[,2]
+    rm(Buffered)
+    
+    #Clip or not
+    Pl=Polygon(cbind(PLon,PLat))
+    if (Clip==0){
+      Pls=Polygons(list(Pl), ID=PID)
+    }else{
+      cat(paste("Start clipping polygon",PID),"\n")
+      # need to fix when Coastline data on the online GIS has been clarified 
+      Pls=Clip2Coast(Pl,Coastline=Clip,ID=PID)
+      cat(paste("End clipping polygon",PID),"\n") 
+    }
+    
+    SPls=SpatialPolygons(list(Pls))
+    PArea=round(gArea(SPls, byid=F)/1000000)
+    if ((dim(data)[2])==3){df=data.frame(name=PID,row.names=PID,AreaKm2=PArea,Lat=LLat,Lon=LLon)}
+    if ((dim(data)[2])==4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea,Lat=LLat,Lon=LLon);colnames(df)[2]=names(data)[4]}
+    if ((dim(data)[2])>4){df=data.frame(name=PID,row.names=PID,PVal,AreaKm2=PArea,Lat=LLat,Lon=LLon)}
+    SPDF=SpatialPolygonsDataFrame(SPls, df)
+    proj4string(SPDF)=CRS(CRSProj)
+    #Add each polygon to the Group
+    Group[i]=Pls
+    GroupData=rbind(GroupData,df)
+    
+  }
+    Group=SpatialPolygons(Group)
+    Group=SpatialPolygonsDataFrame(Group,GroupData)
+    proj4string(Group)=CRS(CRSProj)
+    if(OutputFormat=="SHAPEFILE"){
+      writeOGR(Group,".",OutputName,driver="ESRI Shapefile")
+    }else{
+      return(Group)
+    }
+  }
+  
+}
+
