@@ -5,7 +5,7 @@
 \title{Create a Polygon Grid}
 \usage{
 create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  dlon, dlat, Type)
+  dlon, dlat)
 }
 \arguments{
 \item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value}
@@ -17,8 +17,9 @@ create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 \item{dlon}{width of the grid cells in decimal degrees of longitude e.g. dlon=1}
 
 \item{dlat}{height of the grid cells in decimal degrees of latitude e.g.: dlat=0.5}
-
-\item{Type}{set according to the type of data to be gridded. If it is numerical data (e.g. Krill length, tootfish catch; see Table 4) set Type="NUM". If it is categorical data (e.g. CCAMLR Species Code, Vessel name; see Table 5), set Type="CAT".}
+}
+\value{
+Returns polygons in R or output to ESRI shapefile format with attributes that summarise the points included in each polygon. These summary attributes include a count ("Count"), maximum ("Max"), minimum ("Min)", mean ("Mean), standard deviation ("StdDev"), median ("Median") and sum ("Sum").
 }
 \description{
 Create a Polygon Grid that can display the amount of catch taken from specifed grid cell sizes

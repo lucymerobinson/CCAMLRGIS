@@ -18,6 +18,9 @@ create_Points(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 
 \item{Clip}{"Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
 }
+\value{
+Returns points
+}
 \description{
 Create Points that are compatible with CCAMLR online GIS
 }
