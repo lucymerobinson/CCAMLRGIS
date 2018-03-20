@@ -53,11 +53,20 @@ Lons <- c(130, 130, 134, 134)
 Coords <- data.frame(Name=rep(Name,length(Lons)),Lats=Lats,Lons=Lons)
 
 # create polygon of proposed Research area to use in further Analyses
-New_RB <-create_Polys(Coords)
+New_RB <- create_Polys(Coords)
 ```
 
-The SpatialPolygonDataFrame "New_RB"" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
-You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and OutputName="RB_5841_6"
+The function automatically calculates a plantimetric area estimate based on the geometry of "New_RB". For details on how this area is caculated see ?create_Polys and to access the estimate:
+
+```{r}
+
+New_RB$AreaKm2
+
+```
+
+The SpatialPolygonDataFrame "New_RB"" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
+You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and a name for example: OutputName="RB_5841_6"
+
 
 
 ## Loading CCAMLR's reference data from the online GIS into R
@@ -129,7 +138,6 @@ See ?create_PolysGrids for function input specifications
 ### Example of creating a Polygon Grid of Krill catch
 
 ```{r}
-library(CCAMLRGIS)
 # Create example catch data with Longitude and Latitude
 
 # specify the Latitude coordinates in decimal degrees
@@ -142,10 +150,10 @@ Catch <- sample(100:1000,length(Lons),replace = TRUE)
 Catch_data <- data.frame(Lats=Lats,Lons=Lons,Catch=Catch)
 
 # create polygon of proposed Research area to use in further Analyses
-New_Grid <-create_PolyGrids(Catch_data,dlon=2,dlat=1,Type = "NUM")
+New_Grid <- create_PolyGrids(Catch_data,dlon=2,dlat=1,Type = "NUM")
 ```
 
-The SpatialPolygonDataFrame "New_Grid"" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
+The SpatialPolygonDataFrame "New_Grid"" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
 You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and OutputName="KrillCatch_Grid"
 
 
@@ -159,7 +167,6 @@ The RColorBrewer package provides a variety of color ramps for plotting
 
 
 ```{r}
-# add graticules and store locations of labels
 # install.packages(c("classInt","RColorBrewer"))
 library(classInt)
 library(RColorBrewer)
@@ -195,6 +202,41 @@ raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
 text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 
 ```
+
+
+### Create Lines
+
+It is useful to create spatial line data to represent longline sets or vessel or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
+
+see ?create_Lines for function specifications
+
+### Example of creating lines that represent two longline sets that each have start and end coordinates
+```{r}
+
+## specify the name of the lines
+
+Name <- c(rep("Set_1",2),rep("Set_2",2))
+
+## specify the Longitude coordinates in decimal degrees
+
+Lon <- c(-99,-98,-101,-100)
+
+## specify the Latitude coordinates in decimal degrees
+ 
+Lat<- c(-69,-69,-70.5,-70)
+
+## bind information together into a dataframe 
+
+Coords<- data.frame(Name=Name,Lat=Lat,Lon=Lon)
+
+## create polygon of proposed Research area
+
+New_Lines <- create_Lines(Coords)
+```
+
+The SpatialLineDataFrame "New_Lines" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
+You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and and output name for example: OutputName="Longlines_Subarea883"
+
 
 
 
