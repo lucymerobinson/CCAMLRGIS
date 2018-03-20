@@ -150,11 +150,20 @@ Catch <- sample(100:1000,length(Lons),replace = TRUE)
 Catch_data <- data.frame(Lats=Lats,Lons=Lons,Catch=Catch)
 
 # create polygon of proposed Research area to use in further Analyses
-New_Grid <- create_PolyGrids(Catch_data,dlon=2,dlat=1,Type = "NUM")
+New_Grid <- create_PolyGrids(Catch_data,dlon=2,dlat=1)
 ```
 
 The SpatialPolygonDataFrame "New_Grid"" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
-You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and OutputName="KrillCatch_Grid"
+You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and a file name. For example OutputName="KrillCatch_Grid"
+
+
+The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons
+
+```{r}
+
+head(New_Grid@data)
+
+```
 
 
 ## Prepare a simple map of the Polygon Grid with a CCAMLR Subarea of interest
