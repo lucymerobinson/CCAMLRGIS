@@ -98,7 +98,7 @@
     
 
     <pre class="usage"><span class='fu'>create_PolyGrids</span>(<span class='no'>InputFile</span>, <span class='kw'>OutputFormat</span> <span class='kw'>=</span> <span class='st'>"ROBJECT"</span>, <span class='kw'>OutputName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>dlon</span>, <span class='no'>dlat</span>, <span class='no'>Type</span>)</pre>
+  <span class='no'>dlon</span>, <span class='no'>dlat</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -123,11 +123,11 @@
       <th>dlat</th>
       <td><p>height of the grid cells in decimal degrees of latitude e.g.: dlat=0.5</p></td>
     </tr>
-    <tr>
-      <th>Type</th>
-      <td><p>set according to the type of data to be gridded. If it is numerical data (e.g. Krill length, tootfish catch; see Table 4) set Type="NUM". If it is categorical data (e.g. CCAMLR Species Code, Vessel name; see Table 5), set Type="CAT".</p></td>
-    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns polygons in R or output to ESRI shapefile format with attributes that summarise the points included in each polygon. These summary attributes include a count ("Count"), maximum ("Max"), minimum ("Min)", mean ("Mean), standard deviation ("StdDev"), median ("Median") and sum ("Sum").</p>
     
 
   </div>
@@ -135,7 +135,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

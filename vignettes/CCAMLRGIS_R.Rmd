@@ -28,7 +28,7 @@ devtools::install_github("lucymerobinson/CCAMLRGIS",build_vignettes=TRUE)
 
 ```
 
-## Creating Polygons
+## Create Polygons
 
 Polygon data often needs to be created when new scientific research areas and/or management areas are being proposed. The create_Polys function has been developed to create polygons that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
 
@@ -69,12 +69,12 @@ You can also output as an ESRI Shapefile for use in other programs by specifying
 
 
 
-## Loading CCAMLR's reference data from the online GIS into R
+## Load CCAMLR's reference data into R
 
 CCAMLR's reference data include management areas, defined in Conservation Measures and/or Scientific Committee reports (e.g. ASD's, SSRU's, etc). The text and/or geographical coordinates that are used to create polygons that define the reference area boundaries are stores in the CCAMLR's central database in SQL Server Spatial. These data, that are displayed as layers on the online GIS, are also stored in GeoJSON format, in an online geoserver repository, that allows them to be loaded directly into R. 
 
 
-### Example of loading the ASD's into R from the online repository
+### Example of loading ASD's into R 
 
 ```{r,eval=FALSE}
 # load ASDs from the online GIS - you will need to be online for this to work see 
@@ -92,7 +92,7 @@ ASD_5841 <- ASDs[ASDs$GAR_Short_Label%in%"5841",]
 
 ```
 
-## Prepare a simple map of a proposed Research Block with a CCAMLR Subarea of interest
+### Prepare a simple map with the proposed Research Block 
 
 ### Load graticule library that will be added to map plot below
 
@@ -128,7 +128,7 @@ text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 
 ```
 
-### Create Polygon Grid 
+## Create Polygon Grid 
 
 Polygon grids are useful for displaying catch quantities at a resolution that can be specified by the user. The create_PolysGrids function has been developed to create polygon grids to display variation in quantity of target species catch.
 
@@ -166,7 +166,7 @@ head(New_Grid@data)
 ```
 
 
-## Prepare a simple map of the Polygon Grid with a CCAMLR Subarea of interest
+### Prepare a simple map of the Polygon Grid 
 
 ### install and load classInt and RColorBrewer package.
 
@@ -213,13 +213,14 @@ text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 ```
 
 
-### Create Lines
+## Create Lines
 
-It is useful to create spatial line data to represent longline sets or vessel or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
+It can be useful to useful to create spatial line data to represent/analyse a variety of data that are collected and examined in the CCAMLR Convention Area such as longline sets, vessel tracks or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
 
 see ?create_Lines for function specifications
 
-### Example of creating lines that represent two longline sets that each have start and end coordinates
+### Example of creating lines that represent longline sets 
+
 ```{r}
 
 ## specify the name of the lines
@@ -228,11 +229,11 @@ Name <- c(rep("Set_1",2),rep("Set_2",2))
 
 ## specify the Longitude coordinates in decimal degrees
 
-Lon <- c(-99,-98,-101,-100)
+Lon <- c(-99,-98.5,-101,-101.3)
 
 ## specify the Latitude coordinates in decimal degrees
  
-Lat<- c(-69,-69,-70.5,-70)
+Lat<- c(-69.1,-69.1,-70.2,-70)
 
 ## bind information together into a dataframe 
 
@@ -247,5 +248,106 @@ The SpatialLineDataFrame "New_Lines" can be used in further analyses in R (as pe
 You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and and output name for example: OutputName="Longlines_Subarea883"
 
 
+The create_Lines function also calculates the length of the line that you create in kilometers and nautical miles. This can be accessed using 
+
+```{r}
+# to access line length in km
+New_Lines$LengthKm
+
+# to access line length in NM
+New_Lines$LengthNm
+
+```
 
 
+### Plot Lines with graticules
+
+
+```{r}
+
+# create graticules for plotting below
+meridians <- seq(-105,-95, by = 1)
+parallels <- seq(-90, -55, by = 1)
+
+
+mlim <- c(min(meridians), max(meridians))
+plim <- c(min(parallels), max(parallels))
+grat <- graticule(lons = meridians, lats = parallels, xlim = mlim, ylim = plim, proj = raster::projection(New_Lines))
+labs <- graticule_labels(meridians, parallels, xline = -100.2, yline = -69.5, proj = raster::projection(New_Lines))
+
+
+par(mar=c(1,1,1,1))
+raster::plot(New_Lines,col="red")
+# add graticules to plot
+raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
+text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
+
+```
+
+
+## Create Points
+
+It can be useful to useful to create spatial point data to represent monitoring sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
+
+see ?create_Lines for function specifications
+
+### Example of creating lines that represent longline sets 
+
+
+```{r}
+
+# specify the name of the points
+
+Name <- c("Point_1","Point_2","Point_3")
+
+# specify the Latitude coordinates in decimal degrees
+
+Lat<- c(-70.2,-70.1,-69.9)
+
+# specify the Longitude coordinates in decimal degrees
+
+Lon <- c(-160,-161,-159)
+
+# bind information together into a dataframe 
+
+Coords<- data.frame(Name=Name,Lat=Lat,Lon=Lon)
+
+# create points 
+
+New_Points <- create_Points(Coords)
+
+```
+
+### Plot points in Subarea 88.2 with graticules
+
+
+```{r}
+
+# create graticules for plotting below
+meridians <- seq(-180,-100, by = 10)
+parallels <- seq(-90, -55, by = 5)
+
+
+mlim <- c(min(meridians), max(meridians))
+plim <- c(min(parallels), max(parallels))
+grat <- graticule(lons = meridians, lats = parallels, xlim = mlim, ylim = plim, proj = raster::projection(New_Points))
+labs <- graticule_labels(meridians, parallels, xline = -140, yline = -67.5, proj = raster::projection(New_Points))
+
+
+# set plotting margins to zero on all sides
+par(mar=c(0,0,0,0))
+
+# select Subarea 88.2 from ASDs polygon data
+
+raster::plot(ASDs[ASDs$GAR_Short_Label%in%"882",])
+
+# add points to the plot
+
+raster::plot(New_Points,col="red",add=TRUE,pch=20)
+
+# add graticules to plot
+
+raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
+text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
+
+```
