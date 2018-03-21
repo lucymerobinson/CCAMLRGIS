@@ -97,26 +97,27 @@
     <p>Create Points that are compatible with CCAMLR online GIS</p>
     
 
-    <pre class="usage"><span class='fu'>create_Points</span>(<span class='no'>InputFile</span>, <span class='no'>OutputName</span>, <span class='kw'>Buffer</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>Separate</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>Clip</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>create_Points</span>(<span class='no'>InputFile</span>, <span class='kw'>OutputFormat</span> <span class='kw'>=</span> <span class='st'>"ROBJECT"</span>, <span class='kw'>OutputName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>Buffer</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>Clip</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>InputFile</th>
-      <td><p>currently, the name of the input data file in quotes e.g. "DataFile.csv", but I want to change this so you can choose between R dataframe or csv file</p></td>
+      <td><p>the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude</p></td>
+    </tr>
+    <tr>
+      <th>OutputFormat</th>
+      <td><p>can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPointsDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.</p></td>
     </tr>
     <tr>
       <th>OutputName</th>
-      <td><p>currently, the name of the output shapefile in quotes e.g."MyShape" but I want to change this to "ROBJECT" is stored in work environment, "RDATA" will write an .rda file or "SHAPEFILE" with write an ESRI Shapefile</p></td>
+      <td><p>if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format</p></td>
     </tr>
     <tr>
       <th>Buffer</th>
       <td><p>is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer</p></td>
-    </tr>
-    <tr>
-      <th>Separate</th>
-      <td><p>currently, If the data file contains several items (e.g. several fishing lines) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. I want to remove this as I think you can manage this at the input end.</p></td>
     </tr>
     <tr>
       <th>Clip</th>
@@ -124,13 +125,41 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>Returns points with attributed "Name", "Lat" and "Long". If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>## specify the name of the points</span>
+
+<span class='no'>Name</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"Point_1"</span>,<span class='st'>"Point_2"</span>,<span class='st'>"Point_3"</span>)
+
+<span class='co'>## specify the Latitude coordinates in decimal degrees</span>
+
+<span class='no'>Lat</span><span class='kw'>&lt;-</span> <span class='fu'>c</span>(-<span class='fl'>70.2</span>,-<span class='fl'>70.1</span>,-<span class='fl'>69.9</span>)
+
+<span class='co'>## specify the Longitude coordinates in decimal degrees</span>
+
+<span class='no'>Lon</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(-<span class='fl'>160</span>,-<span class='fl'>161</span>,-<span class='fl'>159</span>)
+
+<span class='co'>## bind information together into a dataframe </span>
+
+<span class='no'>Coords</span><span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Name</span><span class='kw'>=</span><span class='no'>Name</span>,<span class='kw'>Lat</span><span class='kw'>=</span><span class='no'>Lat</span>,<span class='kw'>Lon</span><span class='kw'>=</span><span class='no'>Lon</span>)
+
+<span class='co'>## create points </span>
+
+<span class='no'>New_Points</span> <span class='kw'>&lt;-</span> <span class='fu'>create_Points</span>(<span class='no'>Coords</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

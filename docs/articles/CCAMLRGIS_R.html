@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-03-20</h4>
+            <h4 class="date">2018-03-21</h4>
           </div>
 
     
@@ -84,9 +84,9 @@
 <p>To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages(“devtools”)) and then use the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
-<div id="creating-polygons" class="section level2">
+<div id="create-polygons" class="section level2">
 <h2 class="hasAnchor">
-<a href="#creating-polygons" class="anchor"></a>Creating Polygons</h2>
+<a href="#create-polygons" class="anchor"></a>Create Polygons</h2>
 <p>Polygon data often needs to be created when new scientific research areas and/or management areas are being proposed. The create_Polys function has been developed to create polygons that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
 <p>See ?create_Polys for function input specifications</p>
 <div id="example-of-creating-a-proposed-research-block" class="section level3">
@@ -108,26 +108,29 @@ Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
 New_RB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
-<p>The SpatialPolygonDataFrame “New_RB”" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and OutputName=“RB_5841_6”</p>
+<p>The function automatically calculates a plantimetric area estimate based on the geometry of “New_RB”. For details on how this area is caculated see ?create_Polys and to access the estimate:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">New_RB<span class="op">$</span>AreaKm2</code></pre></div>
+<pre><code>## [1] 31851</code></pre>
+<p>The SpatialPolygonDataFrame “New_RB”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a name for example: OutputName=“RB_5841_6”</p>
 </div>
 </div>
-<div id="loading-ccamlrs-reference-data-from-the-online-gis-into-r" class="section level2">
+<div id="load-ccamlrs-reference-data-into-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#loading-ccamlrs-reference-data-from-the-online-gis-into-r" class="anchor"></a>Loading CCAMLR’s reference data from the online GIS into R</h2>
+<a href="#load-ccamlrs-reference-data-into-r" class="anchor"></a>Load CCAMLR’s reference data into R</h2>
 <p>CCAMLR’s reference data include management areas, defined in Conservation Measures and/or Scientific Committee reports (e.g. ASD’s, SSRU’s, etc). The text and/or geographical coordinates that are used to create polygons that define the reference area boundaries are stores in the CCAMLR’s central database in SQL Server Spatial. These data, that are displayed as layers on the online GIS, are also stored in GeoJSON format, in an online geoserver repository, that allows them to be loaded directly into R.</p>
-<div id="example-of-loading-the-asds-into-r-from-the-online-repository" class="section level3">
+<div id="example-of-loading-asds-into-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-of-loading-the-asds-into-r-from-the-online-repository" class="anchor"></a>Example of loading the ASD’s into R from the online repository</h3>
+<a href="#example-of-loading-asds-into-r" class="anchor"></a>Example of loading ASD’s into R</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load ASDs from the online GIS - you will need to be online for this to work see </span>
 ?load_ASDs 
 ASDs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_ASDs.html">load_ASDs</a></span>(<span class="st">"GEOJSON"</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># index ASD in the area of interest - e.g. 58.4.1</span>
 ASD_<span class="dv">5841</span> &lt;-<span class="st"> </span>ASDs[ASDs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"5841"</span>,]</code></pre></div>
 </div>
+<div id="prepare-a-simple-map-with-the-proposed-research-block" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prepare-a-simple-map-with-the-proposed-research-block" class="anchor"></a>Prepare a simple map with the proposed Research Block</h3>
 </div>
-<div id="prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest" class="anchor"></a>Prepare a simple map of a proposed Research Block with a CCAMLR Subarea of interest</h2>
 <div id="load-graticule-library-that-will-be-added-to-map-plot-below" class="section level3">
 <h3 class="hasAnchor">
 <a href="#load-graticule-library-that-will-be-added-to-map-plot-below" class="anchor"></a>Load graticule library that will be added to map plot below</h3>
@@ -158,19 +161,18 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <span class="co"># add graticules to plot</span>
 raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(grat, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>)
 <span class="kw">text</span>(labs, <span class="dt">lab =</span> <span class="kw">parse</span>(<span class="dt">text=</span> labs<span class="op">$</span>lab), <span class="dt">col=</span> <span class="st">"black"</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
 </div>
-<div id="create-polygon-grid" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create-polygon-grid" class="anchor"></a>Create Polygon Grid</h3>
+</div>
+<div id="create-polygon-grid" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-polygon-grid" class="anchor"></a>Create Polygon Grid</h2>
 <p>Polygon grids are useful for displaying catch quantities at a resolution that can be specified by the user. The create_PolysGrids function has been developed to create polygon grids to display variation in quantity of target species catch.</p>
 <p>See ?create_PolysGrids for function input specifications</p>
-</div>
 <div id="example-of-creating-a-polygon-grid-of-krill-catch" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-of-creating-a-polygon-grid-of-krill-catch" class="anchor"></a>Example of creating a Polygon Grid of Krill catch</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CCAMLRGIS)
-<span class="co"># Create example catch data with Longitude and Latitude</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create example catch data with Longitude and Latitude</span>
 
 <span class="co"># specify the Latitude coordinates in decimal degrees</span>
 Lats &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dt">mean=</span><span class="op">-</span><span class="dv">62</span>,<span class="dt">sd=</span><span class="fl">0.25</span>)
@@ -182,13 +184,22 @@ Catch &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="
 Catch_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Lats=</span>Lats,<span class="dt">Lons=</span>Lons,<span class="dt">Catch=</span>Catch)
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
-New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_PolyGrids.html">create_PolyGrids</a></span>(Catch_data,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>,<span class="dt">Type =</span> <span class="st">"NUM"</span>)</code></pre></div>
-<p>The SpatialPolygonDataFrame “New_Grid”" can be created for further use in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and OutputName=“KrillCatch_Grid”</p>
+New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_PolyGrids.html">create_PolyGrids</a></span>(Catch_data,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>)</code></pre></div>
+<p>The SpatialPolygonDataFrame “New_Grid”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a file name. For example OutputName=“KrillCatch_Grid”</p>
+<p>The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
+<pre><code>##    name Count Max Min   Mean StdDev Median   Sum
+## 1 Catch     1 950 950 950.00     NA  950.0   950
+## 2 Catch    78 989 112 533.28 253.14  558.0 41596
+## 3 Catch   107 983 104 550.68 255.67  539.0 58923
+## 4 Catch   112 990 103 526.09 277.93  530.5 58922
+## 5 Catch   108 997 122 541.65 258.05  535.0 58498
+## 6 Catch    97 992 110 551.85 250.87  544.0 53529</code></pre>
 </div>
+<div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prepare-a-simple-map-of-the-polygon-grid" class="anchor"></a>Prepare a simple map of the Polygon Grid</h3>
 </div>
-<div id="prepare-a-simple-map-of-the-polygon-grid-with-a-ccamlr-subarea-of-interest" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prepare-a-simple-map-of-the-polygon-grid-with-a-ccamlr-subarea-of-interest" class="anchor"></a>Prepare a simple map of the Polygon Grid with a CCAMLR Subarea of interest</h2>
 <div id="install-and-load-classint-and-rcolorbrewer-package-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#install-and-load-classint-and-rcolorbrewer-package-" class="anchor"></a>install and load classInt and RColorBrewer package.</h3>
@@ -225,7 +236,125 @@ br[<span class="kw">length</span>(br)] &lt;-<span class="st"> </span>br[<span cl
 <span class="co"># add graticules to plot</span>
 raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(grat, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>)
 <span class="kw">text</span>(labs, <span class="dt">lab =</span> <span class="kw">parse</span>(<span class="dt">text=</span> labs<span class="op">$</span>lab), <span class="dt">col=</span> <span class="st">"black"</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+</div>
+</div>
+<div id="create-lines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-lines" class="anchor"></a>Create Lines</h2>
+<p>It can be useful to useful to create spatial line data to represent/analyse a variety of data that are collected and examined in the CCAMLR Convention Area such as longline sets, vessel tracks or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>see ?create_Lines for function specifications</p>
+<div id="example-of-creating-lines-that-represent-longline-sets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example-of-creating-lines-that-represent-longline-sets" class="anchor"></a>Example of creating lines that represent longline sets</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## specify the name of the lines
+
+Name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">"Set_1"</span>,<span class="dv">2</span>),<span class="kw">rep</span>(<span class="st">"Set_2"</span>,<span class="dv">2</span>))
+
+## specify the Longitude coordinates in decimal degrees
+
+Lon &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">99</span>,<span class="op">-</span><span class="fl">98.5</span>,<span class="op">-</span><span class="dv">101</span>,<span class="op">-</span><span class="fl">101.3</span>)
+
+## specify the Latitude coordinates in decimal degrees
+ 
+Lat&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">69.1</span>,<span class="op">-</span><span class="fl">69.1</span>,<span class="op">-</span><span class="fl">70.2</span>,<span class="op">-</span><span class="dv">70</span>)
+
+## bind information together into a dataframe 
+
+Coords&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name=</span>Name,<span class="dt">Lat=</span>Lat,<span class="dt">Lon=</span>Lon)
+
+## create polygon of proposed Research area
+
+New_Lines &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Lines.html">create_Lines</a></span>(Coords)</code></pre></div>
+<p>The SpatialLineDataFrame “New_Lines” can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and and output name for example: OutputName=“Longlines_Subarea883”</p>
+<p>The create_Lines function also calculates the length of the line that you create in kilometers and nautical miles. This can be accessed using</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to access line length in km</span>
+New_Lines<span class="op">$</span>LengthKm</code></pre></div>
+<pre><code>## [1] 20.25 24.84</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to access line length in NM</span>
+New_Lines<span class="op">$</span>LengthNm</code></pre></div>
+<pre><code>## [1] 10.93 13.41</code></pre>
+</div>
+<div id="plot-lines-with-graticules" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plot-lines-with-graticules" class="anchor"></a>Plot Lines with graticules</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create graticules for plotting below</span>
+meridians &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">105</span>,<span class="op">-</span><span class="dv">95</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">55</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+
+
+mlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(meridians), <span class="kw">max</span>(meridians))
+plim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(parallels), <span class="kw">max</span>(parallels))
+grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Lines))
+labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="op">-</span><span class="fl">100.2</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="fl">69.5</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Lines))
+
+
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))
+raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(New_Lines,<span class="dt">col=</span><span class="st">"red"</span>)
+<span class="co"># add graticules to plot</span>
+raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(grat, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>)
+<span class="kw">text</span>(labs, <span class="dt">lab =</span> <span class="kw">parse</span>(<span class="dt">text=</span> labs<span class="op">$</span>lab), <span class="dt">col=</span> <span class="st">"black"</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
+<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+</div>
+</div>
+<div id="create-points" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-points" class="anchor"></a>Create Points</h2>
+<p>It can be useful to useful to create spatial point data to represent monitoring sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>see ?create_Lines for function specifications</p>
+<div id="example-of-creating-lines-that-represent-longline-sets-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example-of-creating-lines-that-represent-longline-sets-1" class="anchor"></a>Example of creating lines that represent longline sets</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the name of the points</span>
+
+Name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Point_1"</span>,<span class="st">"Point_2"</span>,<span class="st">"Point_3"</span>)
+
+<span class="co"># specify the Latitude coordinates in decimal degrees</span>
+
+Lat&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">70.2</span>,<span class="op">-</span><span class="fl">70.1</span>,<span class="op">-</span><span class="fl">69.9</span>)
+
+<span class="co"># specify the Longitude coordinates in decimal degrees</span>
+
+Lon &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">160</span>,<span class="op">-</span><span class="dv">161</span>,<span class="op">-</span><span class="dv">159</span>)
+
+<span class="co"># bind information together into a dataframe </span>
+
+Coords&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name=</span>Name,<span class="dt">Lat=</span>Lat,<span class="dt">Lon=</span>Lon)
+
+<span class="co"># create points </span>
+
+New_Points &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Points.html">create_Points</a></span>(Coords)</code></pre></div>
+</div>
+<div id="plot-points-in-subarea-88-2-with-graticules" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plot-points-in-subarea-88-2-with-graticules" class="anchor"></a>Plot points in Subarea 88.2 with graticules</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create graticules for plotting below</span>
+meridians &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">180</span>,<span class="op">-</span><span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">10</span>)
+parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">55</span>, <span class="dt">by =</span> <span class="dv">5</span>)
+
+
+mlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(meridians), <span class="kw">max</span>(meridians))
+plim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(parallels), <span class="kw">max</span>(parallels))
+grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Points))
+labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="op">-</span><span class="dv">140</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="fl">67.5</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Points))
+
+
+<span class="co"># set plotting margins to zero on all sides</span>
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+
+<span class="co"># select Subarea 88.2 from ASDs polygon data</span>
+
+raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(ASDs[ASDs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"882"</span>,])
+
+<span class="co"># add points to the plot</span>
+
+raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(New_Points,<span class="dt">col=</span><span class="st">"red"</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">pch=</span><span class="dv">20</span>)
+
+<span class="co"># add graticules to plot</span>
+
+raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/plot">plot</a></span>(grat, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>)
+<span class="kw">text</span>(labs, <span class="dt">lab =</span> <span class="kw">parse</span>(<span class="dt">text=</span> labs<span class="op">$</span>lab), <span class="dt">col=</span> <span class="st">"black"</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
+<p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
 </div>
 </div>
 </div>
@@ -237,10 +366,11 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#creating-polygons">Creating Polygons</a></li>
-      <li><a href="#loading-ccamlrs-reference-data-from-the-online-gis-into-r">Loading CCAMLR’s reference data from the online GIS into R</a></li>
-      <li><a href="#prepare-a-simple-map-of-a-proposed-research-block-with-a-ccamlr-subarea-of-interest">Prepare a simple map of a proposed Research Block with a CCAMLR Subarea of interest</a></li>
-      <li><a href="#prepare-a-simple-map-of-the-polygon-grid-with-a-ccamlr-subarea-of-interest">Prepare a simple map of the Polygon Grid with a CCAMLR Subarea of interest</a></li>
+      <li><a href="#create-polygons">Create Polygons</a></li>
+      <li><a href="#load-ccamlrs-reference-data-into-r">Load CCAMLR’s reference data into R</a></li>
+      <li><a href="#create-polygon-grid">Create Polygon Grid</a></li>
+      <li><a href="#create-lines">Create Lines</a></li>
+      <li><a href="#create-points">Create Points</a></li>
       </ul>
 </div>
       </div>
