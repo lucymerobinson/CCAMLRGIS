@@ -5,7 +5,7 @@
 \title{Create Polygons}
 \usage{
 create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  Buffer = 0, Separate = 0, Densify = 1, Clip = 0)
+  Buffer = 0, Densify = 1, Clip = 0)
 }
 \arguments{
 \item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv". The columns in the input should be in the following order: Poly Name, Lats and Lons}
@@ -15,8 +15,6 @@ create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 \item{OutputName}{if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format}
 
 \item{Buffer}{is the value in nautical miles to apply to the polygon verticies. The default value is 0, assuming no Buffer}
-
-\item{Separate}{currently, if the data file contains several items (e.g. several proposed management areas) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1.}
 
 \item{Densify}{is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added}
 
