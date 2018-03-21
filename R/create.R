@@ -6,7 +6,6 @@
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path. 
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the polygon verticies. The default value is 0, assuming no Buffer
-#' @param Separate currently, if the data file contains several items (e.g. several proposed management areas) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. 
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
 #' @param Clip "Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
 #' @return Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function 
@@ -33,7 +32,7 @@
 #' 
 #' New_RBs <-create_Polys(Coords)
 
-create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Separate=0,Densify=1,Clip=0){
+create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=0){
   # Load data
   if (class(InputFile)=="character"){
     data=read.csv(InputFile)}else{
@@ -113,10 +112,6 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       SPDF=SpatialPolygonsDataFrame(SPls, df)
       proj4string(SPDF)=CRS(CRSProj)
       
-      if(OutputFormat=="SHAPEFILE"){
-        if (Separate==1 & Buffer==0){writeOGR(SPDF,".",paste(OutputName,"_",as.character(PID),sep=""),driver="ESRI Shapefile")}
-        if (Separate==1 & Buffer!=0){writeOGR(SPDF,".",paste(OutputName,"_Buffered_",as.character(PID),sep=""),driver="ESRI Shapefile")}
-      }
       #Add each polygon to the Group
       Group[[i]] = Pls
       GroupData=rbind(GroupData,df)
@@ -178,11 +173,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       SPDF=SpatialPolygonsDataFrame(SPls, df)
       proj4string(SPDF)=CRS(CRSProj)
-      if(OutputFormat=="SHAPEFILE"){
-        if (Separate==1 & Buffer==0){writeOGR(SPDF,".",paste(OutputName,"_",as.character(PID),sep=""),driver="ESRI Shapefile")}
-        if (Separate==1 & Buffer!=0){writeOGR(SPDF,".",paste(OutputName,"_Buffered_",as.character(PID),sep=""),driver="ESRI Shapefile")}
-      }
-      
+
       #Add each polygon to the Group
       Group[[i]] = Pls
       GroupData=rbind(GroupData,df)
@@ -193,10 +184,8 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
   Group=SpatialPolygonsDataFrame(Group,GroupData)
   proj4string(Group)=CRS(CRSProj)
   if(OutputFormat=="SHAPEFILE"){
-    if (Separate==1 & Buffer==0){writeOGR(Group,".",paste(OutputName,"_Group",sep=""),driver="ESRI Shapefile")}
-    if (Separate==1 & Buffer!=0){writeOGR(Group,".",paste(OutputName,"_Buffered_Group",sep=""),driver="ESRI Shapefile")}
-    if (Separate==0 & Buffer==0){writeOGR(Group,".",OutputName,driver="ESRI Shapefile")}
-    if (Separate==0 & Buffer!=0){writeOGR(Group,".",paste(OutputName,"_Buffered",sep=""),driver="ESRI Shapefile")}
+    if (Buffer==0){writeOGR(Group,".",OutputName,driver="ESRI Shapefile")}
+    if (Buffer!=0){writeOGR(Group,".",paste(OutputName,"_Buffered",sep=""),driver="ESRI Shapefile")}
   }else{
     return(Group)
   }  
