@@ -91,8 +91,7 @@ load_SSRUs <-function(format){
 load_Coastline <-function(format){
   
   if(format=="GEOJSON"){
-    # url that stores the ssurs (this product has not been updated and will not read into R as it doesn't have unique field IDs)
-    # unique ID issue fixed Jan 2017
+ 
     ccamlrgisurl <- "https://gis2.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
     Coastline_data <- readOGR(dsn=readLines(ccamlrgisurl, warn=F),layer="OGRGeoJSON",verbose = FALSE)
     
