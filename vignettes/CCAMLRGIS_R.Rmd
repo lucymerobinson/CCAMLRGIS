@@ -218,7 +218,7 @@ It can be useful to useful to create spatial line data to represent/analyse a va
 
 see ?create_Lines for function specifications
 
-### Example of creating lines that represent longline sets 
+### Example of creating lines that could represent longline sets 
 
 ```{r}
 
@@ -286,11 +286,11 @@ text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
 
 ## Create Points
 
-It can be useful to useful to create spatial point data to represent monitoring sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
+It can be useful to useful to create spatial point data to represent survey sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that conform to CCAMLR's standards/specifications that can be used in analyses or to generate maps in R. 
 
 see ?create_Lines for function specifications
 
-### Example of creating lines that represent longline sets 
+### Example of creating points that could represent survey sites
 
 
 ```{r}
