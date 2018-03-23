@@ -156,16 +156,6 @@ The SpatialPolygonDataFrame "New_Grid"" can be used in further analyses in R (as
 You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and a file name. For example OutputName="KrillCatch_Grid"
 
 
-
-The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons
-
-```{r}
-
-head(New_Grid@data)
-
-```
-
-
 The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons
 
 ```{r}
@@ -414,30 +404,5 @@ The output from the funtion is two column dataframe. The first column, under the
 
 ```{r}
 seabed_area_482_S
-
 ```
 
-
-### Example of estimating seabed area in multiple depth classes in a Research Block
-
-In this example we estimate the seabed area in four depth classes in Research Block 482_S
-
-The depth classes (within the fishable seabed area depth range) are divided into 300m intervals as follows: 
-
-```{r}
-depth_classes <- c("600-900","900-1200","1200-1500","1500-1800")
-```
-
-And the seabed area in each depth class in Research Block 482_S is calculated:
-
-```{r}
-seabed_area_482_S_depth_classes <- seabed_area(bathymetry = bathymetry_data,ROI=RB_482_S,fishable_area = FALSE,depth_classes = depth_classes)
-```
-
-The output from the funtion is a dataframe that includes the region name, total area and then area in area of each of the specified depth class intervals. The first column, under the column name "Region" contains the label or name of the polygon that was included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name "Total area", is the estimated planimetric seabed area (km2) in the fishable depth range and the subsequent four columns include the seabed area in each of the specified four depth classes. 
-
-```{r,eval=FALSE}
-
-seabed_area_482_S_depth_classes
-
-```
