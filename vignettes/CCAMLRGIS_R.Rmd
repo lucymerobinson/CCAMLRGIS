@@ -68,7 +68,6 @@ The SpatialPolygonDataFrame "New_RB"" can be used in further analyses in R (as p
 You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and a name for example: OutputName="RB_5841_6"
 
 
-
 ## Load CCAMLR's reference data into R
 
 CCAMLR's reference data include management areas, defined in Conservation Measures and/or Scientific Committee reports (e.g. ASD's, SSRU's, etc). The text and/or geographical coordinates that are used to create polygons that define the reference area boundaries are stores in the CCAMLR's central database in SQL Server Spatial. These data, that are displayed as layers on the online GIS, are also stored in GeoJSON format, in an online geoserver repository, that allows them to be loaded directly into R. 
@@ -155,6 +154,16 @@ New_Grid <- create_PolyGrids(Catch_data,dlon=2,dlat=1)
 
 The SpatialPolygonDataFrame "New_Grid"" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat="ROBJECT".
 You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat="SHAPEFILE" and a file name. For example OutputName="KrillCatch_Grid"
+
+
+
+The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons
+
+```{r}
+
+head(New_Grid@data)
+
+```
 
 
 The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons
@@ -349,5 +358,86 @@ raster::plot(New_Points,col="red",add=TRUE,pch=20)
 
 raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
 text(labs, lab = parse(text= labs$lab), col= "black", cex = 0.7)
+
+```
+
+## Calculate seabed area 
+
+Calculating seabed area within particular depth ranges can be useful in a CCAMLR context for designing depth stratified surveys for estimating local toothfish biomass. The seabed_area function has been developed to provide seabed_area estimates within what is commonly classified as a fishable seabed depth range of 600-1800m. 
+
+To see input requirements see ?seabed_area
+
+### Bathymetry data
+
+Bathmetry data is necessary to calculate seabed area. A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m) has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.
+
+```{r}
+
+bathymetry_data_fn <- system.file("extdata","GEBCO_2014_600_1800m_482_S.grd",package = "CCAMLRGIS")
+
+bathymetry_data <- raster::raster(bathymetry_data_fn)
+
+```
+
+
+### Example of estimating fishable seabed area in a Research Block
+
+Load Research Block data and restrict the attribute data stored in the SpatialPolygonDataFrame to "GAR_Short_Label" 
+
+```{r,eval=FALSE}
+# load Research Blocks from the online GIS - you will need to be online for this to work see 
+RBs <- load_RBs("GEOJSON")
+```
+
+```{r,include=FALSE}
+RBs <- load_RBs("RDATA")
+```
+```{r}
+# select data column names in GAR_Short_Label
+RBs <- RBs[,names(RBs)%in%"GAR_Short_Label"]
+
+```
+
+Select a Research Block of interest. For example, the Research Block in Subarea 48.2 - 482_S
+
+```{r}
+RB_482_S <- RBs[RBs$GAR_Short_Label%in%"482_S",]
+```
+
+Estimate fishable seabed area in Research Block 482_S
+
+```{r}
+seabed_area_482_S <- seabed_area(bathymetry = bathymetry_data,ROI = RB_482_S,fishable_area = TRUE)
+```
+
+The output from the funtion is two column dataframe. The first column, under the column name "Region" contains the label or name of the polygon that was included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name "Total area", is the estimated planimetric seabed area (km2) in the fishable depth range. 
+
+```{r}
+seabed_area_482_S
+
+```
+
+
+### Example of estimating seabed area in multiple depth classes in a Research Block
+
+In this example we estimate the seabed area in four depth classes in Research Block 482_S
+
+The depth classes (within the fishable seabed area depth range) are divided into 300m intervals as follows: 
+
+```{r}
+depth_classes <- c("600-900","900-1200","1200-1500","1500-1800")
+```
+
+And the seabed area in each depth class in Research Block 482_S is calculated:
+
+```{r}
+seabed_area_482_S_depth_classes <- seabed_area(bathymetry = bathymetry_data,ROI=RB_482_S,fishable_area = FALSE,depth_classes = depth_classes)
+```
+
+The output from the funtion is a dataframe that includes the region name, total area and then area in area of each of the specified depth class intervals. The first column, under the column name "Region" contains the label or name of the polygon that was included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name "Total area", is the estimated planimetric seabed area (km2) in the fishable depth range and the subsequent four columns include the seabed area in each of the specified four depth classes. 
+
+```{r,eval=FALSE}
+
+seabed_area_482_S_depth_classes
 
 ```
