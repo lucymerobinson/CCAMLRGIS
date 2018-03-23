@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • CCAMLRGIS</title>
+<title>Calculate planimetric seabed area — seabed_area • CCAMLRGIS</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -88,40 +88,48 @@
       </header>
 
       <div class="row">
-
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+    <h1>Calculate planimetric seabed area</h1>
     </div>
 
-    <div class="contents">
-    <div id="ccamlrgis-2-2-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#ccamlrgis-2-2-0-9000" class="anchor"></a>CCAMLRGIS 2.2.0.9000</h1>
-<p>Seabed area estimation function and bathymetry data to be added</p>
-<p>Functionalities to be added in the near-medium term:</p>
-<p>extract_area functions to assign management area codes to georeferenced point data</p>
-</div>
-    <div id="ccamlrgis-2-1-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#ccamlrgis-2-1-0-9000" class="anchor"></a>CCAMLRGIS 2.1.0.9000</h1>
-<p>create_Lines and create_Points functions have been added</p>
-<p>Vignette updated with new functions</p>
-<p>Automated testing from travis and appveyor</p>
-</div>
-    </div>
+    
+    <p>Calculate planimetric seabed area within the single depth class and/or multiple depth classes</p>
+    
+
+    <pre class="usage"><span class='fu'>seabed_area</span>(<span class='no'>bathymetry</span>, <span class='no'>ROI</span>, <span class='no'>fishable_area</span>, <span class='kw'>depth_classes</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>bathymetry</th>
+      <td><p>is data in a raster file format upon which the calculation
+is based, it is assumed that all bathymetry values above zero have been removed.</p></td>
+    </tr>
+    <tr>
+      <th>ROI</th>
+      <td><p>is the polygon(s) region of interest in the SpatialPolygonsDataFrame</p></td>
+    </tr>
+    <tr>
+      <th>fishable_area</th>
+      <td><p>is TRUE if the planimetric seabed area in the fishable depth range (i.e. 800-1600m) will be calculated if FALSE then the total seabed area will be calculated</p></td>
+    </tr>
+    <tr>
+      <th>depth_classes</th>
+      <td><p>is a character vector that includes the minimum and maximum depth within each depth class e.g. c("0-600","600-1800","1800-max")</p></td>
+    </tr>
+    </table>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#ccamlrgis-2-2-0-9000">2.2.0.9000</a></li>
-        <li><a href="#ccamlrgis-2-1-0-9000">2.1.0.9000</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
+  </div>
 </div>
 
       <footer>

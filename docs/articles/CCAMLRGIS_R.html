@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-03-21</h4>
+            <h4 class="date">2018-03-23</h4>
           </div>
 
     
@@ -189,12 +189,12 @@ New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/cr
 <p>The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
 <pre><code>##    name Count Max Min   Mean StdDev Median   Sum
-## 1 Catch    96 987 104 555.82 261.45  529.0 53359
-## 2 Catch    88 999 101 594.36 250.53  639.5 52304
-## 3 Catch    91 973 120 577.84 242.95  581.0 52583
-## 4 Catch   108 990 110 589.17 250.76  632.5 63630
-## 5 Catch   101 997 105 562.45 261.49  586.0 56807
-## 6 Catch    92 993 102 533.73 253.71  499.5 49103</code></pre>
+## 1 Catch     2 975 700 837.50 194.45  837.5  1675
+## 2 Catch   107 973 103 528.06 257.31  493.0 56502
+## 3 Catch    94 977 103 546.43 245.41  557.5 51364
+## 4 Catch   112 999 101 549.78 281.35  574.0 61575
+## 5 Catch   111 999 100 595.37 254.60  612.0 66086
+## 6 Catch    92 983 100 539.33 263.36  539.5 49618</code></pre>
 </div>
 <div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
 <h3 class="hasAnchor">
@@ -357,6 +357,37 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <p><img src="CCAMLRGIS_R_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
 </div>
 </div>
+<div id="calculate-seabed-area" class="section level2">
+<h2 class="hasAnchor">
+<a href="#calculate-seabed-area" class="anchor"></a>Calculate seabed area</h2>
+<p>Calculating seabed area within particular depth ranges can be useful in a CCAMLR context for designing depth stratified surveys for estimating local toothfish biomass. The seabed_area function has been developed to provide seabed_area estimates within what is commonly classified as a fishable seabed depth range of 600-1800m.</p>
+<p>To see input requirements see ?seabed_area</p>
+<div id="bathymetry-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bathymetry-data" class="anchor"></a>Bathymetry data</h3>
+<p>Bathmetry data is necessary to calculate seabed area. A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m) has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bathymetry_data_fn &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>,<span class="st">"GEBCO_2014_600_1800m_482_S.grd"</span>,<span class="dt">package =</span> <span class="st">"CCAMLRGIS"</span>)
+
+bathymetry_data &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/raster">raster</a></span>(bathymetry_data_fn)</code></pre></div>
+</div>
+<div id="example-of-estimating-fishable-seabed-area-in-a-research-block" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example-of-estimating-fishable-seabed-area-in-a-research-block" class="anchor"></a>Example of estimating fishable seabed area in a Research Block</h3>
+<p>Load Research Block data and restrict the attribute data stored in the SpatialPolygonDataFrame to “GAR_Short_Label”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load Research Blocks from the online GIS - you will need to be online for this to work see </span>
+RBs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/load_RBs.html">load_RBs</a></span>(<span class="st">"GEOJSON"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select data column names in GAR_Short_Label</span>
+RBs &lt;-<span class="st"> </span>RBs[,<span class="kw">names</span>(RBs)<span class="op">%in%</span><span class="st">"GAR_Short_Label"</span>]</code></pre></div>
+<p>Select a Research Block of interest. For example, the Research Block in Subarea 48.2 - 482_S</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RB_482_S &lt;-<span class="st"> </span>RBs[RBs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"482_S"</span>,]</code></pre></div>
+<p>Estimate fishable seabed area in Research Block 482_S</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(<span class="dt">bathymetry =</span> bathymetry_data,<span class="dt">ROI =</span> RB_482_S,<span class="dt">fishable_area =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>The output from the funtion is two column dataframe. The first column, under the column name “Region” contains the label or name of the polygon that was included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name “Total area”, is the estimated planimetric seabed area (km2) in the fishable depth range.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S</code></pre></div>
+<pre><code>##   Region Total area
+## 1  482_S    2268.75</code></pre>
+</div>
+</div>
 </div>
   </div>
 
@@ -371,6 +402,7 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
       <li><a href="#create-polygon-grid">Create Polygon Grid</a></li>
       <li><a href="#create-lines">Create Lines</a></li>
       <li><a href="#create-points">Create Points</a></li>
+      <li><a href="#calculate-seabed-area">Calculate seabed area</a></li>
       </ul>
 </div>
       </div>
