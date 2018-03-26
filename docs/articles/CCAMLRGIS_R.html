@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-03-23</h4>
+            <h4 class="date">2018-03-26</h4>
           </div>
 
     
@@ -78,16 +78,14 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This vignette describes the R package “CCAMLRGIS”. The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (<a href="https://gis.ccamlr.org/" class="uri">https://gis.ccamlr.org/</a>) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR’s Conservation Measures or in Scientific Committe reports.</p>
-<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with the projection and processing choices that have been agreed by CCAMLR (or something along these lines)</p>
-<p>To understand what is covered in this vignette, you must understand the basics of the R language. There are a number of on-line and other resources that can help you to get acquainted with it. The CCAMLRGIS package does not operate in isolation. There are a number of R package that the CCAMLRGIS package requires and other R packages that it compliments. Package requirements can be viewed under Imports in the DESCRIPTION file and in individual functions.</p>
-<p>One complementary package is “graticule”. Graticules are the lines of constant longitude and latitude shown on a projected map, and defining and drawing these lines is not easy to automate. The graticule package provides the tools to create and draw these lines by explicit specification by the user. The relevant functions from the graticule package will be included in examples provided below.</p>
+<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with the agreed projection and processing choices (insert para refs)</p>
 <p>To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages(“devtools”)) and then use the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
 <div id="create-polygons" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-polygons" class="anchor"></a>Create Polygons</h2>
-<p>Polygon data often needs to be created when new scientific research areas and/or management areas are being proposed. The create_Polys function has been developed to create polygons that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>The create_Polys function has been developed to create polygons that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
 <p>See ?create_Polys for function input specifications</p>
 <div id="example-of-creating-a-proposed-research-block" class="section level3">
 <h3 class="hasAnchor">
@@ -108,7 +106,7 @@ Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
 New_RB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
-<p>The function automatically calculates a plantimetric area estimate based on the geometry of “New_RB”. For details on how this area is caculated see ?create_Polys and to access the estimate:</p>
+<p>The function automatically calculates a plantimetric area estimate (in km2) based on the geometry of “New_RB”. For details on how this area is caculated see ?create_Polys and to access the estimates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">New_RB<span class="op">$</span>AreaKm2</code></pre></div>
 <pre><code>## [1] 31851</code></pre>
 <p>The SpatialPolygonDataFrame “New_RB”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a name for example: OutputName=“RB_5841_6”</p>
@@ -130,6 +128,7 @@ ASD_<span class="dv">5841</span> &lt;-<span class="st"> </span>ASDs[ASDs<span cl
 <div id="prepare-a-simple-map-with-the-proposed-research-block" class="section level3">
 <h3 class="hasAnchor">
 <a href="#prepare-a-simple-map-with-the-proposed-research-block" class="anchor"></a>Prepare a simple map with the proposed Research Block</h3>
+<p>The plot function from the raster package is used for plotting maps as it will accept all spatial data/Raster objects see ?raster::plot for further details</p>
 </div>
 <div id="load-graticule-library-that-will-be-added-to-map-plot-below" class="section level3">
 <h3 class="hasAnchor">
@@ -169,9 +168,9 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <a href="#create-polygon-grid" class="anchor"></a>Create Polygon Grid</h2>
 <p>Polygon grids are useful for displaying catch quantities at a resolution that can be specified by the user. The create_PolysGrids function has been developed to create polygon grids to display variation in quantity of target species catch.</p>
 <p>See ?create_PolysGrids for function input specifications</p>
-<div id="example-of-creating-a-polygon-grid-of-krill-catch" class="section level3">
+<div id="example-of-creating-a-polygon-grid-that-could-represent-catch-data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-of-creating-a-polygon-grid-of-krill-catch" class="anchor"></a>Example of creating a Polygon Grid of Krill catch</h3>
+<a href="#example-of-creating-a-polygon-grid-that-could-represent-catch-data" class="anchor"></a>Example of creating a Polygon Grid that could represent catch data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create example catch data with Longitude and Latitude</span>
 
 <span class="co"># specify the Latitude coordinates in decimal degrees</span>
@@ -185,16 +184,16 @@ Catch_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
 New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_PolyGrids.html">create_PolyGrids</a></span>(Catch_data,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>)</code></pre></div>
-<p>The SpatialPolygonDataFrame “New_Grid”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a file name. For example OutputName=“KrillCatch_Grid”</p>
-<p>The function automatically summarises the numerical data included in each polygon cell. For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygons</p>
+<p>The SpatialPolygonDataFrame “New_Grid”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a file name. For example OutputName=“Catch_Grid”</p>
+<p>The function automatically summarises the numerical data included in each polygon grids . For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygon grids</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
 <pre><code>##    name Count Max Min   Mean StdDev Median   Sum
-## 1 Catch     2 975 700 837.50 194.45  837.5  1675
-## 2 Catch   107 973 103 528.06 257.31  493.0 56502
-## 3 Catch    94 977 103 546.43 245.41  557.5 51364
-## 4 Catch   112 999 101 549.78 281.35  574.0 61575
-## 5 Catch   111 999 100 595.37 254.60  612.0 66086
-## 6 Catch    92 983 100 539.33 263.36  539.5 49618</code></pre>
+## 1 Catch    97 987 100 546.12 261.39    538 52974
+## 2 Catch    95 999 107 512.39 255.77    510 48677
+## 3 Catch   105 995 100 513.16 264.27    472 53882
+## 4 Catch    97 999 106 538.63 259.88    555 52247
+## 5 Catch   101 997 107 584.36 270.16    642 59020
+## 6 Catch     1 305 305 305.00     NA    305   305</code></pre>
 </div>
 <div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
 <h3 class="hasAnchor">
@@ -209,18 +208,18 @@ New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/cr
 <span class="kw">library</span>(classInt)
 <span class="kw">library</span>(RColorBrewer)</code></pre></div>
 </div>
-<div id="plot-polygon-grid-of-catch-with-asd-48-1-and-graticules" class="section level3">
+<div id="plot-polygon-grid-of-catch-with-subarea-48-1-and-graticules" class="section level3">
 <h3 class="hasAnchor">
-<a href="#plot-polygon-grid-of-catch-with-asd-48-1-and-graticules" class="anchor"></a>Plot Polygon Grid of Catch with ASD 48.1 and graticules</h3>
+<a href="#plot-polygon-grid-of-catch-with-subarea-48-1-and-graticules" class="anchor"></a>Plot Polygon Grid of Catch with Subarea 48.1 and graticules</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify lables for graticules</span>
 meridians &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">70</span>,<span class="op">-</span><span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">10</span>)
 parallels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">55</span>, <span class="dt">by =</span> <span class="dv">5</span>)
 
 mlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(meridians), <span class="kw">max</span>(meridians))
 plim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(parallels), <span class="kw">max</span>(parallels))
-grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))
+grat &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule">graticule</a></span>(<span class="dt">lons =</span> meridians, <span class="dt">lats =</span> parallels, <span class="dt">xlim =</span> mlim, <span class="dt">ylim =</span> plim, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Grid))
 
-labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="op">-</span><span class="dv">55</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="dv">62</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_RB))
+labs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/graticule/topics/graticule_labels">graticule_labels</a></span>(meridians, parallels, <span class="dt">xline =</span> <span class="op">-</span><span class="dv">55</span>, <span class="dt">yline =</span> <span class="op">-</span><span class="dv">62</span>, <span class="dt">proj =</span> raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/projection">projection</a></span>(New_Grid))
 
 <span class="co">#specify colour ramp</span>
 cols &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer">brewer.pal</a></span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">name =</span> <span class="st">"RdYlGn"</span>)
@@ -242,11 +241,11 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <div id="create-lines" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-lines" class="anchor"></a>Create Lines</h2>
-<p>It can be useful to useful to create spatial line data to represent/analyse a variety of data that are collected and examined in the CCAMLR Convention Area such as longline sets, vessel tracks or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>It can be useful to useful to create spatial line data to represent/analyse a variety of data such as longline sets, vessel tracks or animal tracks. The create_Lines function has been developed to create spatial lines that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
 <p>see ?create_Lines for function specifications</p>
-<div id="example-of-creating-lines-that-represent-longline-sets" class="section level3">
+<div id="example-of-creating-lines-that-could-represent-longline-sets" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-of-creating-lines-that-represent-longline-sets" class="anchor"></a>Example of creating lines that represent longline sets</h3>
+<a href="#example-of-creating-lines-that-could-represent-longline-sets" class="anchor"></a>Example of creating lines that could represent longline sets</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## specify the name of the lines
 
 Name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">"Set_1"</span>,<span class="dv">2</span>),<span class="kw">rep</span>(<span class="st">"Set_2"</span>,<span class="dv">2</span>))
@@ -300,11 +299,11 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <div id="create-points" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-points" class="anchor"></a>Create Points</h2>
-<p>It can be useful to useful to create spatial point data to represent monitoring sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that conform to CCAMLR’s standards/specifications that can be used in analyses or to generate maps in R.</p>
+<p>It can be useful to useful to create spatial point data to represent survey sites, fishing locations and VME locations. The create_Points function has been developed to create spatial points that can be used in analyses or to generate maps in R.</p>
 <p>see ?create_Lines for function specifications</p>
-<div id="example-of-creating-lines-that-represent-longline-sets-1" class="section level3">
+<div id="example-of-creating-points-that-could-represent-survey-sites" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-of-creating-lines-that-represent-longline-sets-1" class="anchor"></a>Example of creating lines that represent longline sets</h3>
+<a href="#example-of-creating-points-that-could-represent-survey-sites" class="anchor"></a>Example of creating points that could represent survey sites</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the name of the points</span>
 
 Name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Point_1"</span>,<span class="st">"Point_2"</span>,<span class="st">"Point_3"</span>)
@@ -365,7 +364,7 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <div id="bathymetry-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bathymetry-data" class="anchor"></a>Bathymetry data</h3>
-<p>Bathmetry data is necessary to calculate seabed area. A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m) has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.</p>
+<p>Bathmetry data is necessary to calculate planimetric seabed area restricted by depth range(s). A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data, that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m), has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bathymetry_data_fn &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>,<span class="st">"GEBCO_2014_600_1800m_482_S.grd"</span>,<span class="dt">package =</span> <span class="st">"CCAMLRGIS"</span>)
 
 bathymetry_data &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/raster">raster</a></span>(bathymetry_data_fn)</code></pre></div>
@@ -381,11 +380,11 @@ RBs &lt;-<span class="st"> </span>RBs[,<span class="kw">names</span>(RBs)<span c
 <p>Select a Research Block of interest. For example, the Research Block in Subarea 48.2 - 482_S</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RB_482_S &lt;-<span class="st"> </span>RBs[RBs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"482_S"</span>,]</code></pre></div>
 <p>Estimate fishable seabed area in Research Block 482_S</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(<span class="dt">bathymetry =</span> bathymetry_data,<span class="dt">ROI =</span> RB_482_S,<span class="dt">fishable_area =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>The output from the funtion is two column dataframe. The first column, under the column name “Region” contains the label or name of the polygon that was included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name “Total area”, is the estimated planimetric seabed area (km2) in the fishable depth range.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(<span class="dt">bathymetry =</span> bathymetry_data,<span class="dt">Polys =</span> RB_482_S,<span class="dt">fishable_area =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>The output from the funtion is two column dataframe. The first column, under the column name “Polys” contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name “Fishable area”, is the estimated planimetric seabed area (km2) in the fishable depth range.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S</code></pre></div>
-<pre><code>##   Region Total area
-## 1  482_S    2268.75</code></pre>
+<pre><code>##   Polys Fishable_area
+## 1 482_S       2268.75</code></pre>
 </div>
 </div>
 </div>
