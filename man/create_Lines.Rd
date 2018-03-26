@@ -4,11 +4,11 @@
 \alias{create_Lines}
 \title{Create Lines}
 \usage{
-create_Lines(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
+create_Lines(Input, OutputFormat = "ROBJECT", OutputName = NULL,
   Buffer = 0, Densify = 1, Clip = FALSE)
 }
 \arguments{
-\item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude}
+\item{Input}{the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude}
 
 \item{OutputFormat}{can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialLinesDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.}
 

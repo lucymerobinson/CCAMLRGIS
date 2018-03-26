@@ -4,13 +4,13 @@
 \alias{seabed_area}
 \title{Calculate planimetric seabed area}
 \usage{
-seabed_area(bathymetry, ROI, fishable_area, depth_classes = NA)
+seabed_area(bathymetry, Polys, fishable_area, depth_classes = NA)
 }
 \arguments{
 \item{bathymetry}{is data in a raster file format upon which the calculation
 is based, it is assumed that all bathymetry values above zero have been removed.}
 
-\item{ROI}{is the polygon(s) region of interest in the SpatialPolygonsDataFrame}
+\item{Polys}{is the polygon(s) region of interest in the SpatialPolygonsDataFrame}
 
 \item{fishable_area}{is TRUE if the planimetric seabed area in the fishable depth range (i.e. 800-1600m) will be calculated if FALSE then the total seabed area will be calculated}
 

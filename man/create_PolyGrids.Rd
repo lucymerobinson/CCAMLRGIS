@@ -4,11 +4,11 @@
 \alias{create_PolyGrids}
 \title{Create a Polygon Grid}
 \usage{
-create_PolyGrids(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  dlon, dlat)
+create_PolyGrids(Input, OutputFormat = "ROBJECT", OutputName = NULL, dlon,
+  dlat)
 }
 \arguments{
-\item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value}
+\item{Input}{the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value}
 
 \item{OutputFormat}{can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.}
 
