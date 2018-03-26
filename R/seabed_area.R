@@ -17,21 +17,21 @@ sum_area <- function(bathymetry){
 #' Calculate planimetric seabed area within the single depth class and/or multiple depth classes
 #' @param bathymetry is data in a raster file format upon which the calculation
 #' is based, it is assumed that all bathymetry values above zero have been removed. 
-#' @param ROI is the polygon(s) region of interest in the SpatialPolygonsDataFrame 
+#' @param Polys is the polygon(s) region of interest in the SpatialPolygonsDataFrame 
 #' @param fishable_area is TRUE if the planimetric seabed area in the fishable depth range (i.e. 800-1600m) will be calculated if FALSE then the total seabed area will be calculated
 #' @param depth_classes is a character vector that includes the minimum and maximum depth within each depth class e.g. c("0-600","600-1800","1800-max")
 #' @import raster
 #' @export
-seabed_area <- function(bathymetry, ROI, fishable_area, depth_classes=NA){
+seabed_area <- function(bathymetry, Polys, fishable_area, depth_classes=NA){
  # check that all spatial data are in the same projection
   ##* proj4string is in both raster and sp, use :: to specify which
-  if(sp::proj4string(bathymetry)!=sp::proj4string(ROI)) stop("projection of bathymetry data does not match that of the ROI")
+  if(sp::proj4string(bathymetry)!=sp::proj4string(Polys)) stop("projection of bathymetry data does not match that of the Polys")
   
-  area_names <- ROI@data[,1]
+  area_names <- Polys@data[,1]
   
   if(fishable_area==TRUE & any(is.na(depth_classes))==TRUE){
     plan_area <- data.frame(matrix(nrow=length(area_names),ncol=2))
-    names(plan_area)<-c("Region","Total area")
+    names(plan_area)<-c("Polys","Fishable_area")
   }else{
     plan_area=data.frame(matrix(nrow=length(area_names),ncol=length(depth_classes)+2))
     names(plan_area)=c("Region","Total_area",depth_classes)
@@ -48,7 +48,7 @@ seabed_area <- function(bathymetry, ROI, fishable_area, depth_classes=NA){
   
   for (name in area_names) {
     # index Research block
-    Poly <- ROI[area_names%in%name,]
+    Poly <- Polys[area_names%in%name,]
     Bathy <- raster::crop(bathymetry, raster::extent(Poly))
     Total_area <- raster::mask(Bathy,Poly)
     
