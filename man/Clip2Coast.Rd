@@ -9,12 +9,12 @@ Clip2Coast(Pl, Coastline, ID)
 \arguments{
 \item{Pl}{polygon(s) to be clipped}
 
-\item{Coastline}{SCAR 2016 coastline data see ?Antarctic_coastline (data still needs to be added) for further details, but need to explore low and high res options}
+\item{Coastline}{calls CCAMLR Coastline_data stored in the package}
 
 \item{ID}{unique IDs for polygons, but think I will get rid of this as polys should have unique IDs}
 }
 \description{
-Clip Polygons to the Antarctic coastline defined by SCAR in 2016
+Clip Polygons to the Antarctic CCAMLR Coastline data
 }
 \keyword{Clip}
 \keyword{Coastline}

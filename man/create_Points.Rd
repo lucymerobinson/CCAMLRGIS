@@ -5,7 +5,7 @@
 \title{Create Points that are compatible with CCAMLR online GIS}
 \usage{
 create_Points(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  Buffer = 0, Clip = 0)
+  Buffer = 0, Clip = FALSE)
 }
 \arguments{
 \item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude}
@@ -16,7 +16,7 @@ create_Points(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 
 \item{Buffer}{is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer}
 
-\item{Clip}{"Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
+\item{Clip}{is TRUE will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required}
 }
 \value{
 Returns points with attributed "Name", "Lat" and "Long". If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package

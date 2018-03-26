@@ -7,7 +7,7 @@
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the polygon verticies. The default value is 0, assuming no Buffer
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
-#' @param Clip "Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @param Clip TRUE will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required
 #' @return Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function 
 #' @import rgeos rgdal raster sp
 #' @export
@@ -32,7 +32,7 @@
 #' 
 #' New_RBs <-create_Polys(Coords)
 
-create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=0){
+create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
   # Load data
   if (class(InputFile)=="character"){
     data=read.csv(InputFile)}else{
@@ -94,7 +94,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       #Clip or not
       Pl=Polygon(PRO)
-      if (Clip==0){
+      if (Clip==FALSE){
         Pls=Polygons(list(Pl), ID=PID)
       }else{
         cat(paste("Start clipping polygon",PID),"\n")
@@ -155,7 +155,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       #Clip or not
       Pl=Polygon(PRO)
-      if (Clip==0){
+      if (Clip==FALSE){
         Pls=Polygons(list(Pl), ID=PID)
       }else{
         cat(paste("Start clipping polygon",PID),"\n")
@@ -306,7 +306,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
 #' @param Densify is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added 
-#' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @param Clip is TRUE will clip a line that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required
 #' @return Returns line(s) in R or output to ESRI shapefile format with Attributes "name" and "LengthKm" and "LengthNm. LengthKm is calculated using the LineLength function in the sp package based on the geometry created in the function. If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package
 #' @import rgeos rgdal raster sp
 #' @export
@@ -331,7 +331,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
 #' 
 #' New_Lines <- create_Lines(Coords)
 
-create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=0){
+create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
   if (class(InputFile)=="character"){
     data=utils::read.csv(InputFile)}else{
       data=InputFile  
@@ -442,7 +442,7 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
       
       #Clip or not
       Pl=Polygon(cbind(PLon,PLat))
-      if (Clip==0){
+      if (Clip==FALSE){
         Pls=Polygons(list(Pl), ID=PID)
       }else{
         cat(paste("Start clipping polygon",PID),"\n")
@@ -595,7 +595,7 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPointsDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
-#' @param Clip "Coast_Low" will clip a line of polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required
+#' @param Clip is TRUE will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required
 #' @return Returns points with attributed "Name", "Lat" and "Long". If a buffer is applied then an additional attribute of "AreaKm2" is also returned. This planimetric area value is calculated using the gArea function from the sp package
 #' @import rgeos rgdal raster sp
 #' @export
@@ -621,7 +621,7 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' New_Points <- create_Points(Coords)
 
 
-create_Points=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Clip=0){
+create_Points=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Clip=FALSE){
   if (class(InputFile)=="character"){
     data=read.csv(InputFile)}else{
       data=InputFile  
@@ -714,7 +714,7 @@ create_Points=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0
     
     #Clip or not
     Pl=Polygon(cbind(PLon,PLat))
-    if (Clip==0){
+    if (Clip==FALSE){
       Pls=Polygons(list(Pl), ID=PID)
     }else{
       cat(paste("Start clipping polygon",PID),"\n")

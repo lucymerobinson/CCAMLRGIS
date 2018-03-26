@@ -5,7 +5,7 @@
 \title{Create Polygons}
 \usage{
 create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  Buffer = 0, Densify = 1, Clip = 0)
+  Buffer = 0, Densify = 1, Clip = FALSE)
 }
 \arguments{
 \item{InputFile}{the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv". The columns in the input should be in the following order: Poly Name, Lats and Lons}
@@ -18,7 +18,7 @@ create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
 
 \item{Densify}{is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added}
 
-\item{Clip}{"Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
+\item{Clip}{TRUE will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required}
 }
 \value{
 Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function
