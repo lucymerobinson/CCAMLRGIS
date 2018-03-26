@@ -2,7 +2,7 @@
 #'
 #' Create Polygons such as proposed Research Blocks or Marine Protected Areas
 #'
-#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv". The columns in the input should be in the following order: Poly Name, Lats and Lons
+#' @param Input  the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv". The columns in the input should be in the following order: Poly Name, Lats and Lons
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path. 
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the polygon verticies. The default value is 0, assuming no Buffer
@@ -32,11 +32,11 @@
 #' 
 #' New_RBs <-create_Polys(Coords)
 
-create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
+create_Polys=function(Input,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
   # Load data
-  if (class(InputFile)=="character"){
-    data=read.csv(InputFile)}else{
-      data=InputFile  
+  if (class(Input)=="character"){
+    data=read.csv(Input)}else{
+      data=Input  
     }
   IDs=as.character(data[,1])
   ListIDs=sort(unique(IDs))
@@ -195,7 +195,7 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #'
 #' Create a Polygon Grid that can display the amount of catch taken from specifed grid cell sizes
 #'
-#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value
+#' @param Input  the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Latitude,Longitude and Value
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param dlon width of the grid cells in decimal degrees of longitude e.g. dlon=1
@@ -206,10 +206,10 @@ create_Polys=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' @importFrom utils read.csv
 #' @export
 
-create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,dlat){
-  if (class(InputFile)=="character"){
-    data=read.csv(InputFile)}else{
-      data=InputFile  
+create_PolyGrids=function(Input,OutputFormat="ROBJECT",OutputName=NULL,dlon,dlat){
+  if (class(Input)=="character"){
+    data=read.csv(Input)}else{
+      data=Input  
     }
   lat=data[,1]
   lon=data[,2]
@@ -301,7 +301,7 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
 #'
 #' Create Lines that are compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
+#' @param Input  the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialLinesDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
@@ -331,10 +331,10 @@ create_PolyGrids=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,dlon,
 #' 
 #' New_Lines <- create_Lines(Coords)
 
-create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
-  if (class(InputFile)=="character"){
-    data=utils::read.csv(InputFile)}else{
-      data=InputFile  
+create_Lines=function(Input,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Densify=1,Clip=FALSE){
+  if (class(Input)=="character"){
+    data=utils::read.csv(Input)}else{
+      data=Input  
     }
   IDs=as.character(data[,1])
   ListIDs=sort(unique(IDs))
@@ -591,7 +591,7 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #'
 #' Create Points that are compatible with CCAMLR online GIS 
 #'
-#' @param InputFile  the name of the input data file as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
+#' @param Input  the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv".  The columns of the input should be in the following order: Name, Latitude,Longitude 
 #' @param OutputFormat can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPointsDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.
 #' @param OutputName  if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format 
 #' @param Buffer is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer
@@ -621,10 +621,10 @@ create_Lines=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,
 #' New_Points <- create_Points(Coords)
 
 
-create_Points=function(InputFile,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Clip=FALSE){
-  if (class(InputFile)=="character"){
-    data=read.csv(InputFile)}else{
-      data=InputFile  
+create_Points=function(Input,OutputFormat="ROBJECT",OutputName=NULL,Buffer=0,Clip=FALSE){
+  if (class(Input)=="character"){
+    data=read.csv(Input)}else{
+      data=Input  
     }
   IDs=as.character(data[,1])
   ListIDs=sort(unique(IDs))
