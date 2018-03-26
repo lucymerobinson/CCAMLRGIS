@@ -33,24 +33,13 @@ Clip2Coast=function(Pl,Coastline,ID){
   Plholes=list() #to store holes
   # Clip / drill coastline
   for (is in Indx){ #is=1681 is coastline
-    #Get Lon coast and Lat coast per isoline
-    # Lonc=coastshp@lines[[is]]@Lines[[1]]@coords[,1]
-    # Latc=coastshp@lines[[is]]@Lines[[1]]@coords[,2]
-    # #Project
-    # PRO=project(cbind(Lonc,Latc),CRSProj)
-    # Lonc=PRO[,1]
-    # Latc=PRO[,2]
-    # rm(PRO)
-    # #Creat SpatialPolygon from Isoline
-    # Plc=Polygon(cbind(c(Lonc,Lonc[1]),c(Latc,Latc[1])))
-    # rm(Lonc,Latc)
+
     Plc=coastshp[is,]
     
     
     if (Plc@polygons[[1]]@area>0){
       
-      # Plc=Polygons(list(Plc), ID=PID)
-      # Plc=SpatialPolygons(list(Plc))  
+
       Plc=gBuffer(Plc,width=0,id=PID)
       
       #If any contact: clip or drill
