@@ -15,7 +15,8 @@ This vignette describes the R package "CCAMLRGIS". The CCAMLRGIS package was dev
 
 The main purpose of this package is to:
 (1) facilitate the use of CCAMLR's spatial data by members and the wider scientific R user community and;
-(2) To enure the spatial data presented at CCAMLR's Working Group meetings and the Scientific committe conforms with the agreed projection and processing choices (insert para refs)
+(2) To enure the spatial data presented at CCAMLR's Working Group meetings and the Scientific committe conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically:
++proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
 
 
 To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages("devtools")) and then use the following command:
