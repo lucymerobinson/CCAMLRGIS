@@ -20,3 +20,9 @@ Data that is classified as "master" data is available in "GEOJSON" format and "R
  Other functions that support the create functions include Clip2Coast and DensifyData
 }
 
+\section{Vignettes}{
+
+To learn more about CCAMLRGIS, start with the vignettes:
+\code{browseVignettes(package = "CCAMLRGIS")}
+}
+

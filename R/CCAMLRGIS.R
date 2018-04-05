@@ -10,6 +10,11 @@
 #'  create_Polys and create_PolyGrids
 #'  Other functions that support the create functions include Clip2Coast and DensifyData
 #'  
+#' @section Vignettes:
+#' To learn more about CCAMLRGIS, start with the vignettes:
+#' \code{browseVignettes(package = "CCAMLRGIS")}
+#' 
+#' 
 #' @docType package
 #' @name CCAMLRGIS
 #' @importFrom graticule graticule

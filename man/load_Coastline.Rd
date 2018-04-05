@@ -14,8 +14,10 @@ Load CCAMLR Coastline based on SCAR Coastline data
 }
 \examples{
  
-# if online
+#if online
+\dontrun{
 Coast <- load_Coastline("GEOJSON")
+}
 
 # if offline 
 Coast <- load_Coastline("RDATA")

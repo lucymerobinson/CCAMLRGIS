@@ -1,13 +1,14 @@
 #' Clip Polygons to the Antarctic coastline
 #'
-#' Clip Polygons to the Antarctic coastline defined by SCAR in 2016 
+#' Clip Polygons to the Antarctic CCAMLR Coastline data
 #'
 #' @param Pl polygon(s) to be clipped
-#' @param Coastline SCAR 2016 coastline data see ?Antarctic_coastline (data still needs to be added) for further details, but need to explore low and high res options
+#' @param Coastline calls CCAMLR Coastline_data stored in the package
 #' @param ID unique IDs for polygons, but think I will get rid of this as polys should have unique IDs
 #' @keywords Clip Coastline
 #' @import rgeos rgdal raster
 #' @importFrom methods slot
+#' @importFrom maptools checkPolygonsHoles
 #' @export
 
 
@@ -18,30 +19,27 @@ Clip2Coast=function(Pl,Coastline,ID){
   #Convert Pl to SpatialPolygon
   Pl=Polygons(list(Pl), ID=PID)
   Pl=SpatialPolygons(list(Pl))
+  # check Pl has proj4string and if not assign
+  if(is.na(proj4string(Pl))){
+    proj4string(Pl) <-  CRSProj
+  }
+  
+  
   #Read isolines shapefile
-  coastshp=readOGR(".",Coastline,verbose=F)
+  coastshp=CCAMLRGIS::Coastline_data
   
   Indx=(1:length(coastshp))
   
   Plholes=list() #to store holes
   # Clip / drill coastline
   for (is in Indx){ #is=1681 is coastline
-    #Get Lon coast and Lat coast per isoline
-    Lonc=coastshp@lines[[is]]@Lines[[1]]@coords[,1]
-    Latc=coastshp@lines[[is]]@Lines[[1]]@coords[,2]
-    #Project
-    PRO=project(cbind(Lonc,Latc),CRSProj)
-    Lonc=PRO[,1]
-    Latc=PRO[,2]
-    rm(PRO)
-    #Creat SpatialPolygon from Isoline
-    Plc=Polygon(cbind(c(Lonc,Lonc[1]),c(Latc,Latc[1])))
-    rm(Lonc,Latc)
+
+    Plc=coastshp[is,]
     
-    if (slot(Plc,"area")>0){
+    
+    if (Plc@polygons[[1]]@area>0){
       
-      Plc=Polygons(list(Plc), ID=PID)
-      Plc=SpatialPolygons(list(Plc))  
+
       Plc=gBuffer(Plc,width=0,id=PID)
       
       #If any contact: clip or drill
@@ -59,6 +57,7 @@ Clip2Coast=function(Pl,Coastline,ID){
             intpol=Polygon(Inter@polygons[[1]]@Polygons[[int]]@coords)
             intpol=Polygons(list(intpol), ID=PID)
             intpol=SpatialPolygons(list(intpol))
+            proj4string(intpol) <- CRSProj
             #Check if intpol should be clipped or drilled
             In=point.in.polygon(intpol@polygons[[1]]@Polygons[[1]]@coords[,1],
                                 intpol@polygons[[1]]@Polygons[[1]]@coords[,2],
@@ -90,6 +89,7 @@ Clip2Coast=function(Pl,Coastline,ID){
       hole=Plholes[[h]]
       hole=Polygons(list(hole), ID=PID)
       hole=SpatialPolygons(list(hole))
+      proj4string(hole) <- CRSProj
       if (gDisjoint(Pl,hole)==F){
         hole=gBuffer(hole,width=-0.00001,id=h)
         hole=Polygon(hole@polygons[[1]]@Polygons[[1]]@coords,hole=T)

@@ -2,28 +2,29 @@
 % Please edit documentation in R/create.R
 \name{create_Polys}
 \alias{create_Polys}
-\title{Create Polygons that are compatible with CCAMLR online GIS}
+\title{Create Polygons}
 \usage{
-create_Polys(InputFile, OutputFormat = "ROBJECT", OutputName = NULL,
-  Buffer = 0, Separate = 0, Densify = 1, Clip = 0)
+create_Polys(Input, OutputFormat = "ROBJECT", OutputName = NULL,
+  Buffer = 0, Densify = 1, Clip = FALSE)
 }
 \arguments{
-\item{InputFile}{the name of the input data file in quotes e.g. "DataFile.csv" or an R dataframe with column values in the following order: Poly Name, Lats and Lons}
+\item{Input}{the name of the input data as a .csv file or an R dataframe. If .csv input then ensure this file is in your set work directory in quotes e.g. "DataFile.csv". The columns in the input should be in the following order: Poly Name, Lats and Lons}
 
-\item{OutputFormat}{is "ROBJECT" is the default and returns as SpatialPolygonDataFrame  to your R work enviornment and "SHAPEFILE" will write an ESRI Shapefile}
+\item{OutputFormat}{can be an R object or ESRI Shapefile. R object is specified as "ROBJECT" and returns a SpatialPolygonDataFrame to your R work enviornment (if this parameter is not specified this is the default). The ESRI Shapefile output is specified as "SHAPEFILE" will write an ESRI Shapefile to your work directory or set file path.}
 
 \item{OutputName}{if "SHAPEFILE" format is specified then supply the name of the output shapefile in quotes e.g."MyShape", the default is NULL and assumes an "ROBJECT" format}
 
-\item{Buffer}{is the value in nautical miles to apply to the line. The default value is 0, assuming no Buffer}
-
-\item{Separate}{currently, if the data file contains several items (e.g. several fishing lines) you may wish to produce one shapefile per item to display them separately on a map. In such a case, set Separate to 1. I want to remove this as I think you can manage this at the input end.}
+\item{Buffer}{is the value in nautical miles to apply to the polygon verticies. The default value is 0, assuming no Buffer}
 
 \item{Densify}{is set to 1 as a default, which will add additional points between points of equal latitude when data are projected. If set to 0 then no additional points will be added}
 
-\item{Clip}{"Coast_Low" will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, "Coast_Medium" is a higher resolution coastline is also provided with the package, the default is set to 0 which assumes no clipping is required}
+\item{Clip}{TRUE will clip a polygon that intersect with the coastline to remove the land and keep only the ocean area, the default is set to FLASE which assumes no clipping is required}
+}
+\value{
+Returns polygon(s) in R or output to ESRI shapefile format with Attributes "name" and "AreaKm2". AreaKm2 is calculated using the gArea function from the sp package based on the geometry created in the function
 }
 \description{
-Create Polygons that are compatible with CCAMLR online GIS
+Create Polygons such as proposed Research Blocks or Marine Protected Areas
 }
 \examples{
 ## specify the name of the Research block
