@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-03-26</h4>
+            <h4 class="date">2018-04-09</h4>
           </div>
 
     
@@ -78,7 +78,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This vignette describes the R package “CCAMLRGIS”. The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (<a href="https://gis.ccamlr.org/" class="uri">https://gis.ccamlr.org/</a>) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR’s Conservation Measures or in Scientific Committe reports.</p>
-<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with the agreed projection and processing choices (insert para refs)</p>
+<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically: +proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0</p>
 <p>To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages(“devtools”)) and then use the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
@@ -188,12 +188,12 @@ New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/cr
 <p>The function automatically summarises the numerical data included in each polygon grids . For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygon grids</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
 <pre><code>##    name Count Max Min   Mean StdDev Median   Sum
-## 1 Catch    97 987 100 546.12 261.39    538 52974
-## 2 Catch    95 999 107 512.39 255.77    510 48677
-## 3 Catch   105 995 100 513.16 264.27    472 53882
-## 4 Catch    97 999 106 538.63 259.88    555 52247
-## 5 Catch   101 997 107 584.36 270.16    642 59020
-## 6 Catch     1 305 305 305.00     NA    305   305</code></pre>
+## 1 Catch    84 986 109 581.02 258.32  578.5 48806
+## 2 Catch    99 992 102 594.45 258.09  603.0 58851
+## 3 Catch    88 983 100 539.56 243.15  503.0 47481
+## 4 Catch   111 983 113 554.53 242.83  525.0 61553
+## 5 Catch    86 960 105 546.35 265.42  576.0 46986
+## 6 Catch   113 967 116 556.80 256.98  568.0 62918</code></pre>
 </div>
 <div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
 <h3 class="hasAnchor">

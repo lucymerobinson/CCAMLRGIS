@@ -2,6 +2,6 @@
 
 devtools::build()
 
-rmarkdown::render("vignettes/BERT-CCAMLR.Rmd")
+rmarkdown::render("vignettes/CCAMLRGIS_R.Rmd")
 
 pkgdown::build_site()

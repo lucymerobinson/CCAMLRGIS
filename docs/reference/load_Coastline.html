@@ -104,17 +104,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>format</th>
-      <td><p>"GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package</p></td>
+      <td><p>"RDATA" will use the SpatialPolygonsDataFrame last saved with the package</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> 
-#if online
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>Coast</span> <span class='kw'>&lt;-</span> <span class='fu'>load_Coastline</span>(<span class='st'>"GEOJSON"</span>)
-<span class='co'># }</span><div class='input'>
+    <pre class="examples"><div class='input'>
+
 <span class='co'># if offline </span>
 <span class='no'>Coast</span> <span class='kw'>&lt;-</span> <span class='fu'>load_Coastline</span>(<span class='st'>"RDATA"</span>)</div></pre>
   </div>
