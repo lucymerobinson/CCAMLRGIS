@@ -3,8 +3,15 @@
 \docType{data}
 \name{RefAreas}
 \alias{RefAreas}
-\title{RefAreas}
+\title{RefAreas 
+ 
+ These were Reference Areas used in local toothfish biomass estimation (see WG-FSA-17/42 for further details)}
 \format{SpatialPolygonsDataFrame}
+\source{
+see inst/lrobinson-notes/createRefAreas.R
+}
 \description{
-RefAreas
+RefAreas 
+ 
+ These were Reference Areas used in local toothfish biomass estimation (see WG-FSA-17/42 for further details)
 }
