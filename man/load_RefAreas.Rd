@@ -7,7 +7,7 @@
 load_RefAreas(format)
 }
 \arguments{
-\item{format}{"RDATA" will use the Spatial Polygon Data Frame last saved with the package}
+\item{format}{"RDATA" will use the SpatialPolygonsDataFrame last saved with the package}
 }
 \description{
 Load CCAMLR Reference Areas (RefAreas)
