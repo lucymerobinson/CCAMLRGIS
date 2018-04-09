@@ -15,11 +15,11 @@ Imports:
     rgeos,
     raster,
     sp,
-    graticule
+    graticule,
+    classInt,
+    RColorBrewer
 RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
-    rmarkdown,
-    classInt,
-    RColorBrewer
+    rmarkdown
 VignetteBuilder: knitr
