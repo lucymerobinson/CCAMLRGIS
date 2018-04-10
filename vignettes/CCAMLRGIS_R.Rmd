@@ -11,11 +11,11 @@ vignette: >
 
 ## Introduction
 
-This vignette describes the R package "CCAMLRGIS". The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (https://gis.ccamlr.org/) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR's Conservation Measures or in Scientific Committe reports. 
+This vignette describes the R package "CCAMLRGIS". The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (https://gis.ccamlr.org/) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR's Conservation Measures or in Scientific Committee reports. 
 
 The main purpose of this package is to:
 (1) facilitate the use of CCAMLR's spatial data by members and the wider scientific R user community and;
-(2) To enure the spatial data presented at CCAMLR's Working Group meetings and the Scientific committe conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically:
+(2) To ensure the spatial data presented at CCAMLR's Working Group meetings and the Scientific committee conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically:
 +proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
 
 
@@ -54,7 +54,7 @@ Coords <- data.frame(Name=rep(Name,length(Lons)),Lats=Lats,Lons=Lons)
 New_RB <- create_Polys(Coords)
 ```
 
-The function automatically calculates a plantimetric area estimate (in km2) based on the geometry of "New_RB". For details on how this area is caculated see ?create_Polys and to access the estimates:
+The function automatically calculates a plantimetric area estimate (in km2) based on the geometry of "New_RB". For details on how this area is calculated see ?create_Polys and to access the estimates:
 
 ```{r}
 
@@ -359,7 +359,7 @@ To see input requirements see ?seabed_area
 
 ### Bathymetry data
 
-Bathmetry data is necessary to calculate planimetric seabed area restricted by depth range(s). A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data, that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m), has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.
+Bathymetry data is necessary to calculate planimetric seabed area restricted by depth range(s). A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data, that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m), has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.
 
 ```{r}
 
@@ -400,9 +400,33 @@ Estimate fishable seabed area in Research Block 482_S
 seabed_area_482_S <- seabed_area(bathymetry = bathymetry_data,Polys = RB_482_S,fishable_area = TRUE)
 ```
 
-The output from the funtion is two column dataframe. The first column, under the column name "Polys" contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name "Fishable area", is the estimated planimetric seabed area (km2) in the fishable depth range. 
+The output from the function is two column dataframe. The first column, under the column name "Polys" contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The second column, under the column name "Fishable area", is the estimated planimetric seabed area (km2) in the fishable depth range. 
 
 ```{r}
 seabed_area_482_S
 ```
 
+
+# Example of estimating seabed area within a number of depth classes in a Research Block
+
+Specify depth classes, within the fishable seabed area depth range, at 300m depth intervals in Research Block 482_S
+
+```{r}
+depth_classes <- c("600-900","900-1200","1200-1500","1500-1800")
+
+```
+
+Estimate seabed area within depth classes 
+
+```{r}
+seabed_area_by_depth_classes <- seabed_area(bathymetry_data,RB_482_S,fishable_area=FALSE,depth_classes = depth_classes)
+
+```
+
+The output from the function is dataframe. The first column, under the column name "Polys" contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The second column, under the column name "Total area",is the estimated planimetric seabed area (km2) across all depth classes and each subsequent column after the "Total area" is named after the depth classes included. In this example the "Total area" should be equal to the "Fishable area" given the example bathymetry data provided in the R package is already restricted to the 600-1800 m depth range. 
+
+```{r}
+
+seabed_area_by_depth_classes
+
+```

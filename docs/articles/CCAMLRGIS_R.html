@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-04-09</h4>
+            <h4 class="date">2018-04-10</h4>
           </div>
 
     
@@ -77,8 +77,8 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This vignette describes the R package “CCAMLRGIS”. The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (<a href="https://gis.ccamlr.org/" class="uri">https://gis.ccamlr.org/</a>) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR’s Conservation Measures or in Scientific Committe reports.</p>
-<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To enure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committe conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically: +proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0</p>
+<p>This vignette describes the R package “CCAMLRGIS”. The CCAMLRGIS package was developed to create new georeferenced data in the CCAMLR Convention Area for visualisation (i.e. mapping) and/or analyses and for reading existing georeferenced data that is displayed on the CCAMLR online GIS (<a href="https://gis.ccamlr.org/" class="uri">https://gis.ccamlr.org/</a>) directly from the webpoint end service into R. The package has a number of create functions for creating polygons, polygon grids, lines or points and a series of load functions for reading existing georeferenced data that has been agreed by the Commission and is documented in CCAMLR’s Conservation Measures or in Scientific Committee reports.</p>
+<p>The main purpose of this package is to: (1) facilitate the use of CCAMLR’s spatial data by members and the wider scientific R user community and; (2) To ensure the spatial data presented at CCAMLR’s Working Group meetings and the Scientific committee conforms with standard projection currently adopted by CCAMLR i.e. the South Pole Lambert Azimuthal Equal Area projection. Defined as EPSG 102020 or more specifically: +proj=laea +lat_0=-90 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0</p>
 <p>To install the CCAMLRGIS from github you will firstly need to install devtools (i.e. install.packages(“devtools”)) and then use the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"lucymerobinson/CCAMLRGIS"</span>,<span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
@@ -106,7 +106,7 @@ Coords &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 
 <span class="co"># create polygon of proposed Research area to use in further Analyses</span>
 New_RB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_Polys.html">create_Polys</a></span>(Coords)</code></pre></div>
-<p>The function automatically calculates a plantimetric area estimate (in km2) based on the geometry of “New_RB”. For details on how this area is caculated see ?create_Polys and to access the estimates:</p>
+<p>The function automatically calculates a plantimetric area estimate (in km2) based on the geometry of “New_RB”. For details on how this area is calculated see ?create_Polys and to access the estimates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">New_RB<span class="op">$</span>AreaKm2</code></pre></div>
 <pre><code>## [1] 31851</code></pre>
 <p>The SpatialPolygonDataFrame “New_RB”" can be used in further analyses in R (as per the above example) because the default parameter option for OutputFormat=“ROBJECT”. You can also output as an ESRI Shapefile for use in other programs by specifying OutputFormat=“SHAPEFILE” and a name for example: OutputName=“RB_5841_6”</p>
@@ -188,12 +188,12 @@ New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/cr
 <p>The function automatically summarises the numerical data included in each polygon grids . For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygon grids</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
 <pre><code>##    name Count Max Min   Mean StdDev Median   Sum
-## 1 Catch    84 986 109 581.02 258.32  578.5 48806
-## 2 Catch    99 992 102 594.45 258.09  603.0 58851
-## 3 Catch    88 983 100 539.56 243.15  503.0 47481
-## 4 Catch   111 983 113 554.53 242.83  525.0 61553
-## 5 Catch    86 960 105 546.35 265.42  576.0 46986
-## 6 Catch   113 967 116 556.80 256.98  568.0 62918</code></pre>
+## 1 Catch    99 997 116 564.61 272.85  593.0 55896
+## 2 Catch   126 996 114 530.79 253.81  507.0 66879
+## 3 Catch    86 997 122 540.85 243.99  546.5 46513
+## 4 Catch    98 990 108 528.18 268.97  513.5 51762
+## 5 Catch    89 999 100 593.78 264.01  616.0 52846
+## 6 Catch   107 998 106 550.14 257.26  555.0 58865</code></pre>
 </div>
 <div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
 <h3 class="hasAnchor">
@@ -364,7 +364,7 @@ raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <div id="bathymetry-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bathymetry-data" class="anchor"></a>Bathymetry data</h3>
-<p>Bathmetry data is necessary to calculate planimetric seabed area restricted by depth range(s). A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data, that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m), has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.</p>
+<p>Bathymetry data is necessary to calculate planimetric seabed area restricted by depth range(s). A processed version of the General Bathymetric Chart of the Oceans (GEBCO) 2014 data, that has been restricted to a Research Block in Subarea 48.2 (482_S) within a fishable depth range (600-1800m), has been included for the examples below, but the full dataset (across the Convention Area) can be requested from the CCAMLR Secretariat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bathymetry_data_fn &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>,<span class="st">"GEBCO_2014_600_1800m_482_S.grd"</span>,<span class="dt">package =</span> <span class="st">"CCAMLRGIS"</span>)
 
 bathymetry_data &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/raster/topics/raster">raster</a></span>(bathymetry_data_fn)</code></pre></div>
@@ -381,11 +381,23 @@ RBs &lt;-<span class="st"> </span>RBs[,<span class="kw">names</span>(RBs)<span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RB_482_S &lt;-<span class="st"> </span>RBs[RBs<span class="op">$</span>GAR_Short_Label<span class="op">%in%</span><span class="st">"482_S"</span>,]</code></pre></div>
 <p>Estimate fishable seabed area in Research Block 482_S</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(<span class="dt">bathymetry =</span> bathymetry_data,<span class="dt">Polys =</span> RB_482_S,<span class="dt">fishable_area =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>The output from the funtion is two column dataframe. The first column, under the column name “Polys” contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The seconde column, under the column name “Fishable area”, is the estimated planimetric seabed area (km2) in the fishable depth range.</p>
+<p>The output from the function is two column dataframe. The first column, under the column name “Polys” contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The second column, under the column name “Fishable area”, is the estimated planimetric seabed area (km2) in the fishable depth range.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_482_S</code></pre></div>
 <pre><code>##   Polys Fishable_area
 ## 1 482_S       2268.75</code></pre>
 </div>
+</div>
+<div id="example-of-estimating-seabed-area-within-a-number-of-depth-classes-in-a-research-block" class="section level1">
+<h1 class="hasAnchor">
+<a href="#example-of-estimating-seabed-area-within-a-number-of-depth-classes-in-a-research-block" class="anchor"></a>Example of estimating seabed area within a number of depth classes in a Research Block</h1>
+<p>Specify depth classes in the fishable seabed area at 300m depth intervals in Research Block 482_S</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">depth_classes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"600-900"</span>,<span class="st">"900-1200"</span>,<span class="st">"1200-1500"</span>,<span class="st">"1500-1800"</span>)</code></pre></div>
+<p>Estimate seabed area within depth classes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_by_depth_classes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(bathymetry_data,RB_482_S,<span class="dt">fishable_area=</span><span class="ot">FALSE</span>,<span class="dt">depth_classes =</span> depth_classes)</code></pre></div>
+<p>The output from the function is dataframe. The first column, under the column name “Polys” contains the label or name of the polygon(s) included in the SpatialPolygonDataFrame input into the seabed_area function. The second column, under the column name “Total area”,is the estimated planimetric seabed area (km2) across all depth classes and each subsequent column after the “Total area” is named after the depth classes included. In this example the “Total area” should be equal to the “Fishable area” given the example bathymetry data provided in the R package is already restricted to the 600-1800 m depth range.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_by_depth_classes</code></pre></div>
+<pre><code>##   Polys Total_area 600-900 900-1200 1200-1500 1500-1800
+## 1 482_S    2268.75  188.25   300.75    479.25    1300.5</code></pre>
 </div>
 </div>
   </div>
@@ -402,6 +414,7 @@ RBs &lt;-<span class="st"> </span>RBs[,<span class="kw">names</span>(RBs)<span c
       <li><a href="#create-lines">Create Lines</a></li>
       <li><a href="#create-points">Create Points</a></li>
       <li><a href="#calculate-seabed-area">Calculate seabed area</a></li>
+      <li><a href="#example-of-estimating-seabed-area-within-a-number-of-depth-classes-in-a-research-block">Example of estimating seabed area within a number of depth classes in a Research Block</a></li>
       </ul>
 </div>
       </div>
