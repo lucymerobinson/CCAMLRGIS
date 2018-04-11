@@ -81,8 +81,11 @@ NULL
 
 #' RefAreas 
 #'  
+#'  These were Reference Areas used in local toothfish biomass estimation (see WG-FSA-17/42 for further details)
+#'  
 #' @docType data
 #' @format SpatialPolygonsDataFrame
+#' @source see inst/lrobinson-notes/createRefAreas.R
 #' @name RefAreas
 NULL
 

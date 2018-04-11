@@ -7,17 +7,13 @@
 load_Coastline(format)
 }
 \arguments{
-\item{format}{"GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package}
+\item{format}{"RDATA" will use the SpatialPolygonsDataFrame last saved with the package}
 }
 \description{
 Load CCAMLR Coastline based on SCAR Coastline data
 }
 \examples{
  
-#if online
-\dontrun{
-Coast <- load_Coastline("GEOJSON")
-}
 
 # if offline 
 Coast <- load_Coastline("RDATA")

@@ -34,7 +34,7 @@ seabed_area <- function(bathymetry, Polys, fishable_area, depth_classes=NA){
     names(plan_area)<-c("Polys","Fishable_area")
   }else{
     plan_area=data.frame(matrix(nrow=length(area_names),ncol=length(depth_classes)+2))
-    names(plan_area)=c("Region","Total_area",depth_classes)
+    names(plan_area)=c("Polys","Total_area",depth_classes)
     # prepare depth reclass matrix
     depth_class_mat<-as.matrix(do.call('rbind', strsplit(as.character(depth_classes),'-',fixed=TRUE)))
     depth_class_mat[dim(depth_class_mat)[1],dim(depth_class_mat)[2]]<- minValue(bathymetry)-1
@@ -60,7 +60,9 @@ seabed_area <- function(bathymetry, Polys, fishable_area, depth_classes=NA){
         Fishable_area <- Total_area   
       }
       # estimate total planimetric area
-      plan_area[area_names%in%name,1:2]<- c(as.character(name),sum_area(Fishable_area))
+      plan_area[area_names%in%name,1]<- as.character(name)
+      plan_area[area_names%in%name,2]<- sum_area(Fishable_area)
+      
     }else{
       
       Depth_strata_reclass=reclassify(Total_area,depth_class_mat)
@@ -75,7 +77,9 @@ seabed_area <- function(bathymetry, Polys, fishable_area, depth_classes=NA){
       sum_area_depth_class=(new_df[,2]*raster::xres(Bathy)*raster::yres(Bathy))/1e6
       sum_area_depth_class=round(sum_area_depth_class,2)
       
-      plan_area[area_names%in%name,]<- c(as.character(name),sum(sum_area_depth_class),sum_area_depth_class)
+      plan_area[area_names%in%name,1]<- name
+      plan_area[area_names%in%name,2]<- sum(sum_area_depth_class)
+      plan_area[area_names%in%name,3:ncol(plan_area)]<- sum_area_depth_class
     }
   }
   plan_area
