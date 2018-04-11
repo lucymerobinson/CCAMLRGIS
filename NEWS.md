@@ -1,6 +1,6 @@
 # CCAMLRGIS 2.2.0.9000
 
-Seabed area estimation function and bathymetry data to be added 
+Seabed area estimation function and example bathymetry data added 
 
 Functionalities to be added in the near-medium term:
 
@@ -14,3 +14,6 @@ create_Lines and create_Points functions have been added
 Vignette updated with new functions
 
 Automated testing from travis and appveyor
+
+
+

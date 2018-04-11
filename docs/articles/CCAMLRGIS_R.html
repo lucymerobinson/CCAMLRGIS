@@ -68,7 +68,7 @@
       <h1>Introduction to the ‘CCAMLRGIS’ R package</h1>
                         <h4 class="author">Lucy Robinson</h4>
             
-            <h4 class="date">2018-04-10</h4>
+            <h4 class="date">2018-04-12</h4>
           </div>
 
     
@@ -188,12 +188,12 @@ New_Grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/cr
 <p>The function automatically summarises the numerical data included in each polygon grids . For details on summary output see ?create_PolyGrids. The summary information appears as follows. Note this only includes data on the first six polygon grids</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(New_Grid<span class="op">@</span>data)</code></pre></div>
 <pre><code>##    name Count Max Min   Mean StdDev Median   Sum
-## 1 Catch    99 997 116 564.61 272.85  593.0 55896
-## 2 Catch   126 996 114 530.79 253.81  507.0 66879
-## 3 Catch    86 997 122 540.85 243.99  546.5 46513
-## 4 Catch    98 990 108 528.18 268.97  513.5 51762
-## 5 Catch    89 999 100 593.78 264.01  616.0 52846
-## 6 Catch   107 998 106 550.14 257.26  555.0 58865</code></pre>
+## 1 Catch    93 994 124 570.31 289.82    577 53039
+## 2 Catch   108 999 109 516.68 258.21    499 55801
+## 3 Catch   109 991 121 567.90 246.26    606 61901
+## 4 Catch    96 995 130 530.62 244.21    509 50940
+## 5 Catch   103 999 134 522.33 237.35    505 53800
+## 6 Catch     3 859 111 371.33 422.65    144  1114</code></pre>
 </div>
 <div id="prepare-a-simple-map-of-the-polygon-grid" class="section level3">
 <h3 class="hasAnchor">
@@ -390,7 +390,7 @@ RBs &lt;-<span class="st"> </span>RBs[,<span class="kw">names</span>(RBs)<span c
 <div id="example-of-estimating-seabed-area-within-a-number-of-depth-classes-in-a-research-block" class="section level1">
 <h1 class="hasAnchor">
 <a href="#example-of-estimating-seabed-area-within-a-number-of-depth-classes-in-a-research-block" class="anchor"></a>Example of estimating seabed area within a number of depth classes in a Research Block</h1>
-<p>Specify depth classes in the fishable seabed area at 300m depth intervals in Research Block 482_S</p>
+<p>Specify depth classes, within the fishable seabed area depth range, at 300m depth intervals in Research Block 482_S</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">depth_classes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"600-900"</span>,<span class="st">"900-1200"</span>,<span class="st">"1200-1500"</span>,<span class="st">"1500-1800"</span>)</code></pre></div>
 <p>Estimate seabed area within depth classes</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seabed_area_by_depth_classes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/seabed_area.html">seabed_area</a></span>(bathymetry_data,RB_482_S,<span class="dt">fishable_area=</span><span class="ot">FALSE</span>,<span class="dt">depth_classes =</span> depth_classes)</code></pre></div>
