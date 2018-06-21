@@ -23,7 +23,6 @@ load_ASDs <- function(format){
     temp <- sprintf("%s.json", tempfile())
     utils::download.file(ccamlrgisurl, temp, mode = "wb")
     ASD_data<- readOGR(dsn=temp,verbose = FALSE)
-    
     return(ASD_data)
   }
   if(format=="RDATA"){
@@ -43,7 +42,8 @@ load_ASDs <- function(format){
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords SSRU Small Scale Research Units
-#' @import rgeos rgdal raster
+#' @import rgeos rgdal raster sf
+#' @importFrom methods as
 #' @export
 #' @examples  
 #' # if online
@@ -57,7 +57,8 @@ load_SSRUs <-function(format){
   if(format=="GEOJSON"){
 
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:ssrus&outputFormat=json"
-    SSRU_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    # SSRU_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    SSRU_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     
     return(SSRU_data)
   }
@@ -115,6 +116,7 @@ load_Coastline <-function(format){
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Research Blocks
 #' @import rgeos rgdal raster
+#' @importFrom methods as
 #' @export
 #' @examples  
 #' # if online
@@ -130,7 +132,8 @@ load_RBs <-function(format){
   if(format=="GEOJSON"){
 
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:research_blocks&maxFeatures=50&outputFormat=json"
-    RB_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    # RB_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    RB_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     
     return(RB_data)
   }
@@ -151,7 +154,8 @@ load_RBs <-function(format){
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Small Scale Management Units (SSMUs)
-#' @import rgeos rgdal raster
+#' @import rgeos rgdal raster sf
+#' @importFrom methods as
 #' @export
 #' @examples  
 #' # if online
@@ -166,7 +170,8 @@ load_SSMUs <-function(format){
   if(format=="GEOJSON"){
 
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:ssmus&outputFormat=json"
-    SSMU_data <- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose=FALSE))
+    # SSMU_data <- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose=FALSE))
+    SSMU_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     return(SSMU_data)
   }
   if(format=="RDATA"){
@@ -183,7 +188,8 @@ load_SSMUs <-function(format){
 #' Load Other Fishery Management Areas
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
-#' @import rgeos rgdal raster
+#' @import rgeos rgdal raster sf
+#' @importFrom methods as
 #' @export
 #' @examples  
 #' # if online
@@ -197,8 +203,8 @@ load_MAs <-function(format){
   if(format=="GEOJSON"){
 
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:omas&outputFormat=json"
-    MA_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
-    
+    # MA_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    MA_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     return(MA_data)
   }
   if(format=="RDATA"){
@@ -247,7 +253,8 @@ load_RefAreas <-function(format){
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Marine Protected Areas
-#' @import rgeos rgdal raster
+#' @import rgeos rgdal raster sf
+#' @importFrom methods as
 #' @export
 
 load_MPAs <-function(format){
@@ -255,8 +262,8 @@ load_MPAs <-function(format){
   if(format=="GEOJSON"){
     
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:mpas&outputFormat=json"
-    MPA_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
-    
+    # MPA_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    MPA_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     return(MPA_data)
   }
   if(format=="RDATA"){
@@ -276,13 +283,15 @@ load_MPAs <-function(format){
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Exclusive Economic Zones
-#' @import rgeos rgdal raster
+#' @import rgeos rgdal raster sf
+#' @importFrom methods as
 #' @export
 
 load_EEZs <-function(format){
   if(format=="GEOJSON"){
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:eez&outputFormat=json"
-    EEZ_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    # EEZ_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
+    EEZ_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
     return(EEZ_data)
   }
   if(format=="RDATA"){
