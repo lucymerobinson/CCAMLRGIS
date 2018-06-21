@@ -92,7 +92,7 @@ load_Coastline <-function(format){
     ccamlrgisurl <- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
     Coastline_data <- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
     
-    # return(Coastline_data)
+    return(Coastline_data)
   }
   if(format=="RDATA"){
     
