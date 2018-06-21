@@ -1,3 +1,10 @@
+# CCAMLRGIS 2.2.3.9000
+
+small patches to existing load functions after the issue with rdgal readOGR fcn was resolved
+
+this version will only run on R versions >= 3.4.4 
+
+
 # CCAMLRGIS 2.2.0.9000
 
 Seabed area estimation function and example bathymetry data added 
