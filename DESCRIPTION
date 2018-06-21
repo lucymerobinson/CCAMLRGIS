@@ -15,7 +15,6 @@ Imports:
     rgeos,
     raster,
     sp,
-    sf,
     graticule,
     classInt,
     RColorBrewer
