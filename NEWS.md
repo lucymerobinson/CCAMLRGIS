@@ -2,7 +2,7 @@
 
 small patches to existing load functions after the issue with rdgal readOGR fcn was resolved
 
-this version will only run on R versions >= 3.4.4 
+this version will only run on R versions >= 3.4.0 
 
 
 # CCAMLRGIS 2.2.0.9000
