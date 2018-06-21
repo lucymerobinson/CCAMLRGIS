@@ -89,8 +89,9 @@ load_Coastline <-function(format){
   
   if(format=="GEOJSON"){
     
-    cat("data currently not available on the CCAMLR online GIS")
-    # Coastline_data <- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
+    # cat("data currently not available on the CCAMLR online GIS")
+    ccamlrgisurl <- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
+    Coastline_data <- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
     
     # return(Coastline_data)
   }
