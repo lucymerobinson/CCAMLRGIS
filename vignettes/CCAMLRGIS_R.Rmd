@@ -181,7 +181,7 @@ library(RColorBrewer)
 
 ```
 
-### Plot Polygon Grid of Catch with Subarea 48.1 and graticules
+### Plot Polygon Grid of Catch with Subarea 48.1, Coastline and graticules
 
 ```{r}
 # specify lables for graticules
@@ -204,6 +204,8 @@ br[1] <- br[1] - offs
 br[length(br)] <- br[length(br)] + offs 
 
 plot(ASDs[ASDs$GAR_Short_Label%in%"481",])
+# add Coastline data
+plot(Coastline_data,add=TRUE)
 plot(New_Grid, col=rev(cols)[cut(New_Grid$Sum, br)],add=TRUE)
 # add graticules to plot
 raster::plot(grat, add = TRUE, lty = 3,lwd=1.5)
