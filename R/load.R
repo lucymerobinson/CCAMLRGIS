@@ -114,7 +114,6 @@ load_Coastline <-function(format){
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Research Blocks
 #' @import rgeos rgdal raster
-#' @importFrom methods as
 #' @export
 #' @examples  
 #' # if online
