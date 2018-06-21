@@ -5,8 +5,8 @@
 #'
 #' @param format "GEOJSON" will extract this geographical reference data displayed on the CCAMLR GIS website and "RDATA" will use the Spatial Polygon Data Frame last saved with the package
 #' @keywords Statistical Areas and Divisions
-#' @import rgeos rgdal raster sf
-#' @importFrom methods as
+#' @import rgeos rgdal raster
+#' @importFrom utils download.file
 #' @export
 #' @examples  
 #' # if online
@@ -20,8 +20,9 @@ load_ASDs <- function(format){
   if(format=="GEOJSON"){
 
     ccamlrgisurl<- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:statistical_areas&outputFormat=json"
-    # ASD_data<- suppressWarnings(readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE))
-    ASD_data <- methods::as(sf::read_sf(ccamlrgisurl),"Spatial")
+    temp <- sprintf("%s.json", tempfile())
+    utils::download.file(ccamlrgisurl, temp, mode = "wb")
+    ASD_data<- readOGR(dsn=temp,verbose = FALSE)
     return(ASD_data)
   }
   if(format=="RDATA"){
@@ -89,8 +90,9 @@ load_Coastline <-function(format){
   
   if(format=="GEOJSON"){
     
-    cat("data currently not available on the CCAMLR online GIS")
-    # Coastline_data <- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
+    # cat("data currently not available on the CCAMLR online GIS")
+    ccamlrgisurl <- "https://gis.ccamlr.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:coastline&outputFormat=json"
+    Coastline_data <- readOGR(dsn=ccamlrgisurl,layer="OGRGeoJSON",verbose = FALSE)
     
     # return(Coastline_data)
   }
